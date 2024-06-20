@@ -24,6 +24,10 @@ module.exports.Robot = class {
         return this.state.is_placed;
     }
 
+    getState() {
+        return this.state;
+    }
+
     execute(command) {
         const stateChanges = command.run(this);
         for (const [propName, value] of Object.entries(stateChanges)) {

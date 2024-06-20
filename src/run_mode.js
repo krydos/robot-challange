@@ -24,7 +24,7 @@ class RunMode {
         if (command.constructor.name == 'ReportCommand') {
             return true;
         }
-        const newState = {...robot.state, ...command.run(robot)}
+        const newState = {...robot.getState(), ...command.run(robot)}
         if (newState.x > table.x || newState.x < 0) {
             return false
         }
