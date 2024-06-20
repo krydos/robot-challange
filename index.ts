@@ -1,4 +1,6 @@
-const RunMode = require('./src/run_mode').RunMode;
+//const RunMode = require('./src/run_mode').RunMode;
+
+import { RunMode } from './src/run_mode';
 
 
 // TODO show usage
@@ -8,6 +10,7 @@ const RunMode = require('./src/run_mode').RunMode;
 // TODO validate robot movements
 // TODO convert to ES6 modules
 // TODO get rid of test/data folder
+// TODO Mark commands as mutable or not (this should help with figuring out if should check if move is valid)
 
 
 // ignore binary and the script names

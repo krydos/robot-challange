@@ -1,16 +1,18 @@
 const readlines = require('n-readlines');
 const prompt = require('prompt-sync')()
 
-const Robot = require('./robot').Robot;
-const parseCommand = require('./commands').parseCommand;
+import { Robot } from './robot';
+import { Table } from './table';
+import { parseCommand } from './commands';
+import { ICommand } from './commands';
 
-class RunMode {
+export class RunMode {
     static interactive() {
         console.log('Use Ctrl+c to exit...')
         RunMode.run(() => prompt('> '))
     }
 
-    static from_file(filepath) {
+    static from_file(filepath: string) {
         const command_stream = RunMode.create_command_stream(filepath)
         RunMode.run(() => {
             const buffer = command_stream.next();
@@ -20,11 +22,11 @@ class RunMode {
         })
     }
 
-    static isValidMove(robot, table, command) {
+    static isValidMove(robot: Robot, table: Table, command: ICommand) {
         if (command.constructor.name == 'ReportCommand') {
             return true;
         }
-        const newState = {...robot.getState(), ...command.run(robot)}
+        const newState = {...robot.getState(), ...command.run(robot.getState())}
         if (newState.x > table.x || newState.x < 0) {
             return false
         }
@@ -34,7 +36,7 @@ class RunMode {
         return true;
     }
 
-    static run(get_input_func) {
+    static run(get_input_func: Function) {
         const robot = new Robot()
         const table = {
             x: 5,
@@ -55,9 +57,7 @@ class RunMode {
         }
     }
 
-    static create_command_stream(filepath) {
+    static create_command_stream(filepath: string) {
         return new readlines(filepath)
     }
 }
-
-module.exports.RunMode = RunMode
