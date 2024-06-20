@@ -1,52 +1,55 @@
 class PlaceCommand {
     constructor(x, y, face) {
-        this.x = x
-        this.y = y
+        this.x = parseInt(x)
+        this.y = parseInt(y)
         this.face = face
     }
 
     run(robot) {
-        robot.x = this.x
-        robot.y = this.y
-        robot.face = this.face
-        robot.is_placed = true
+        return {
+            x: this.x,
+            y: this.y,
+            face: this.face,
+            is_placed: true
+        }
     }
 }
 module.exports.PlaceCommand = PlaceCommand
 
 class LeftCommand {
     run(robot) {
-        if (robot.face == 'NORTH') robot.face = 'WEST'
-        else if (robot.face == 'WEST') robot.face = 'SOUTH'
-        else if (robot.face == 'SOUTH') robot.face = 'EAST'
-        else if (robot.face == 'EAST') robot.face = 'NORTH'
+        if (robot.getFace() == 'NORTH') return { face: 'WEST' }
+        if (robot.getFace() == 'WEST') return { face: 'SOUTH' }
+        if (robot.getFace() == 'SOUTH') return { face: 'EAST' }
+        if (robot.getFace() == 'EAST') return { face: 'NORTH' }
     }
 }
 module.exports.LeftCommand = LeftCommand
 
 class RightCommand {
     run(robot) {
-        if (robot.face == 'NORTH') robot.face = 'EAST'
-        else if (robot.face == 'EAST') robot.face = 'SOUTH'
-        else if (robot.face == 'SOUTH') robot.face = 'WEST'
-        else if (robot.face == 'WEST') robot.face = 'NORTH'
+        if (robot.getFace() == 'NORTH') return { face: 'EAST' }
+        if (robot.getFace() == 'EAST') return { face: 'SOUTH' }
+        if (robot.getFace() == 'SOUTH') return { face: 'WEST' }
+        if (robot.getFace() == 'WEST') return { face: 'NORTH' }
     }
 }
 module.exports.RightCommand = RightCommand
 
  class MoveCommand {
     run(robot) {
-        if (robot.face == 'NORTH') robot.y++;
-        else if (robot.face == 'SOUTH') robot.y--;
-        else if (robot.face == 'EAST') robot.x++;
-        else if (robot.face == 'WEST') robot.x--;
+        if (robot.getFace() == 'NORTH') return { y: robot.getY()+1 }
+        if (robot.getFace() == 'SOUTH') return { y: robot.getY()-1 };
+        if (robot.getFace() == 'EAST') return { x: robot.getX()+1 };
+        if (robot.getFace() == 'WEST') return { x: robot.getX()-1 };
     }
 }
 module.exports.MoveCommand = MoveCommand
 
 class ReportCommand {
     run(robot) {
-        console.log(`${robot.x},${robot.y},${robot.face}`)
+        console.log(`${robot.getX()},${robot.getY()},${robot.getFace()}`)
+        return {}
     }
 }
 module.exports.ReportCommand = ReportCommand

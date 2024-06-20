@@ -20,13 +20,33 @@ class RunMode {
         })
     }
 
+    static isValidMove(robot, table, command) {
+        if (command.constructor.name == 'ReportCommand') {
+            return true;
+        }
+        const newState = {...robot.state, ...command.run(robot)}
+        if (newState.x > table.x || newState.x < 0) {
+            return false
+        }
+        if (newState.y > table.y || newState.y < 0) {
+            return false
+        }
+        return true;
+    }
+
     static run(get_input_func) {
         const robot = new Robot()
+        const table = {
+            x: 5,
+            y: 5,
+        }
         let line = null;
         while (line = get_input_func()) {
             const command = parseCommand(line);
-            if (command) {
+            if (command && RunMode.isValidMove(robot, table, command)) {
                 robot.execute(command)
+            } else {
+                console.log('move is invalid')
             }
         }
     }
