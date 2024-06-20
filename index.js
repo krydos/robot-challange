@@ -1,9 +1,4 @@
-const readlines = require('n-readlines');
-const prompt = require('prompt-sync')()
-
-const Robot = require('./src/robot').Robot;
-const parseCommand = require('./src/commands').parseCommand;
-
+const RunMode = require('./src/run_mode').RunMode;
 
 
 // TODO show usage
@@ -18,33 +13,9 @@ const parseCommand = require('./src/commands').parseCommand;
 // ignore binary and the script names
 const args = process.argv.slice(2);
 
-function create_command_stream(filepath) {
-    return new readlines(filepath)
-}
-
-function run_in_script_mode(filepath) {
-    const command_steam = create_command_stream(filepath)
-    const robot = new Robot()
-    while (line = command_steam.next()) {
-        const command = parseCommand(line.toString('ascii'));
-        robot.execute(command)
-    }
-}
-
-function run_interactively() {
-    const robot = new Robot()
-    console.log('Use Ctrl+c to exit...')
-    while (line = prompt('> ')) {
-        const command = parseCommand(line);
-        robot.execute(command)
-        console.log(robot)
-    }
-}
-
-
 if (args.length > 0) {
-    run_in_script_mode(args[0])
+    RunMode.from_file(args[0]);
 } else {
-    run_interactively()
+    RunMode.interactive();
 }
 
