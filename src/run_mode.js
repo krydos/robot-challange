@@ -43,10 +43,14 @@ class RunMode {
         let line = null;
         while (line = get_input_func()) {
             const command = parseCommand(line);
-            if (command && RunMode.isValidMove(robot, table, command)) {
-                robot.execute(command)
+            if (! command) {
+                continue;
+            }
+
+            if (! RunMode.isValidMove(robot, table, command)) {
+                console.log('Command is invalid.')
             } else {
-                console.log('move is invalid')
+                robot.execute(command)
             }
         }
     }

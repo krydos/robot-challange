@@ -1,8 +1,11 @@
+const VALID_SIDES = ['NORTH', 'SOUTH', 'WEST', 'EAST'];
+
 class PlaceCommand {
     constructor(x, y, face) {
         this.x = parseInt(x)
         this.y = parseInt(y)
         this.face = face
+        this.validate()
     }
 
     run(robot) {
@@ -11,6 +14,12 @@ class PlaceCommand {
             y: this.y,
             face: this.face,
             is_placed: true
+        }
+    }
+
+    validate() {
+        if (! Number.isInteger(this.x) || ! Number.isInteger(this.y) || ! VALID_SIDES.includes(this.face)) {
+            throw 'Invalid PLACE arguments.';
         }
     }
 }
@@ -72,7 +81,12 @@ module.exports.parseCommand = function(command_str) {
     for (const [regexpStr, commandClass] of Object.entries(CMD_MAP)) {
         const regexp = new RegExp(regexpStr, 'i');
         if (regexp.test(cmd_and_args[0])) {
-            return new commandClass(...args)
+            try {
+                return new commandClass(...args)
+            } catch (e) {
+                console.log(e)
+                return null
+            }
         }
     }
 
