@@ -1,0 +1,16 @@
+{
+  "name": "robot-challenge",
+  "version": "1.0.0",
+  "description": "Simulation of a toy robot",
+  "main": "index.js",
+  "scripts": {
+    "repl": "node index.js",
+    "test": "node test/run_all.js"
+  },
+  "author": "Ruslan Bekenev",
+  "license": "ISC",
+  "dependencies": {
+    "n-readlines": "^1.0.1",
+    "prompt-sync": "^4.2.0"
+  }
+}
