@@ -25,7 +25,9 @@ class RunMode {
         let line = null;
         while (line = get_input_func()) {
             const command = parseCommand(line);
-            robot.execute(command)
+            if (command) {
+                robot.execute(command)
+            }
         }
     }
 
