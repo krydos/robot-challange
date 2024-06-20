@@ -34,8 +34,6 @@ export class Robot {
     }
 
     execute(command: ICommand) {
-        const newState = command.run(this.getState());
-        console.log(newState)
-        this.state = newState;
+        this.state = command.run(this.getState());
     }
 }

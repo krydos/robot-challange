@@ -1,5 +1,3 @@
-//const RunMode = require('./src/run_mode').RunMode;
-
 import { RunMode } from './src/run_mode';
 
 

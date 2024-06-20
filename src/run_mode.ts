@@ -23,7 +23,7 @@ export class RunMode {
     }
 
     static isValidMove(robot: Robot, table: Table, command: ICommand) {
-        if (command.constructor.name == 'ReportCommand') {
+        if (! command.mutable) {
             return true;
         }
         const newState = {...robot.getState(), ...command.run(robot.getState())}

@@ -3,10 +3,12 @@ import { RobotState } from './robot'
 export type ValidDirection = 'NORTH' | 'SOUTH' | 'WEST' | 'EAST';
 
 export interface ICommand {
+    mutable: boolean,
     run(state: RobotState): RobotState
 }
 
 class PlaceCommand implements ICommand {
+    mutable = true;
     constructor(
         private args: any
     ) {}
@@ -26,6 +28,7 @@ class PlaceCommand implements ICommand {
 }
 
 class LeftCommand implements ICommand {
+    mutable = true;
     constructor(
         private args: any
     ) {}
@@ -40,6 +43,7 @@ class LeftCommand implements ICommand {
 }
 
 class RightCommand implements ICommand {
+    mutable = true;
     constructor(
         private args: any
     ) {}
@@ -54,6 +58,7 @@ class RightCommand implements ICommand {
 }
 
 class MoveCommand {
+    mutable = true;
     constructor(
         private args: any
     ) {}
@@ -68,6 +73,7 @@ class MoveCommand {
 }
 
 class ReportCommand implements ICommand {
+    mutable = false;
     constructor(
         private args: any
     ) {}
