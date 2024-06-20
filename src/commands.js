@@ -71,5 +71,7 @@ module.exports.parseCommand = function(command_str) {
         return new RightCommand();
     }
 
-    throw new Error(`Unknown command ${command_str}`)
+    console.log(`Unknown command ${command_str}`)
+
+    return null;
 }
