@@ -6,15 +6,15 @@ import { Table } from './table';
 import { parseCommand } from './commands';
 import { ICommand } from './commands';
 
-export class RunMode {
-    static interactive() {
+export class Runner {
+    interactive() {
         console.log('Use Ctrl+c to exit...')
-        RunMode.run(() => prompt('> '))
+        this.run(() => prompt('> '))
     }
 
-    static from_file(filepath: string) {
-        const command_stream = RunMode.create_command_stream(filepath)
-        RunMode.run(() => {
+    from_file(filepath: string) {
+        const command_stream = this.create_command_stream(filepath)
+        this.run(() => {
             const buffer = command_stream.next();
             if (buffer) {
                 return buffer.toString('ascii')
@@ -22,7 +22,28 @@ export class RunMode {
         })
     }
 
-    static isValidMove(robot: Robot, table: Table, command: ICommand) {
+    run(getInputFunc: Function) {
+        const robot = new Robot()
+        const table = {
+            x: 5,
+            y: 5,
+        }
+        let line = null;
+        while (line = getInputFunc()) {
+            const command = parseCommand(line);
+            if (! command) {
+                continue;
+            }
+
+            if (! this.isValidMove(robot, table, command)) {
+                console.log('Command is invalid.')
+            } else {
+                robot.execute(command)
+            }
+        }
+    }
+
+    isValidMove(robot: Robot, table: Table, command: ICommand) {
         if (! command.mutable) {
             return true;
         }
@@ -36,28 +57,7 @@ export class RunMode {
         return true;
     }
 
-    static run(get_input_func: Function) {
-        const robot = new Robot()
-        const table = {
-            x: 5,
-            y: 5,
-        }
-        let line = null;
-        while (line = get_input_func()) {
-            const command = parseCommand(line);
-            if (! command) {
-                continue;
-            }
-
-            if (! RunMode.isValidMove(robot, table, command)) {
-                console.log('Command is invalid.')
-            } else {
-                robot.execute(command)
-            }
-        }
-    }
-
-    static create_command_stream(filepath: string) {
+    create_command_stream(filepath: string) {
         return new readlines(filepath)
     }
 }

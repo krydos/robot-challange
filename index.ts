@@ -1,4 +1,4 @@
-import { RunMode } from './src/run_mode';
+import { Runner } from './src/runner';
 
 
 // TODO show usage
@@ -6,17 +6,18 @@ import { RunMode } from './src/run_mode';
 // TODO commands should be case insensitive
 // TODO validate commands input
 // TODO validate robot movements
-// TODO convert to ES6 modules
 // TODO get rid of test/data folder
-// TODO Mark commands as mutable or not (this should help with figuring out if should check if move is valid)
+// DONE convert to ES6 modules
+// DONE Mark commands as mutable or not (this should help with figuring out if should check if move is valid)
 
 
 // ignore binary and the script names
 const args = process.argv.slice(2);
 
+const runner = new Runner();
 if (args.length > 0) {
-    RunMode.from_file(args[0]);
+    runner.from_file(args[0]);
 } else {
-    RunMode.interactive();
+    runner.interactive();
 }
 
