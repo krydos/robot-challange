@@ -1,4 +1,4 @@
-import { ICommand, ValidDirection } from "./commands";
+import { Command, ValidDirection } from "./commands/common";
 
 export type RobotState = {
     x: number,
@@ -13,27 +13,11 @@ export class Robot {
         this.state = { x: 0, y: 0, face: 'NORTH', is_placed: false }
     }
 
-    getX() {
-        return this.state.x;
-    }
-
-    getY() {
-        return this.state.y;
-    }
-
-    getFace() {
-        return this.state.face;
-    }
-
-    isPlaced() {
-        return this.state.is_placed;
-    }
-
     getState() {
         return this.state;
     }
 
-    execute(command: ICommand) {
+    execute(command: Command) {
         this.state = command.run(this.getState());
     }
 }

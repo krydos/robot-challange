@@ -3,8 +3,8 @@ const prompt = require('prompt-sync')()
 
 import { Robot } from './robot';
 import { Table } from './table';
-import { parseCommand } from './commands';
-import { ICommand } from './commands';
+import { ParseCommand } from './commands/parser';
+import { Command } from './commands/common';
 
 export class Runner {
     interactive() {
@@ -30,7 +30,7 @@ export class Runner {
         }
         let line = null;
         while (line = getInputFunc()) {
-            const command = parseCommand(line);
+            const command = ParseCommand(line);
             if (! command) {
                 continue;
             }
@@ -43,7 +43,7 @@ export class Runner {
         }
     }
 
-    isValidMove(robot: Robot, table: Table, command: ICommand) {
+    isValidMove(robot: Robot, table: Table, command: Command) {
         if (! command.mutable) {
             return true;
         }
