@@ -1,14 +1,14 @@
 class PlaceCommand {
-    constructor(args) {
-        this.x = args[0]
-        this.y = args[1]
-        this.face = args[2]
+    constructor(x, y, face) {
+        this.x = x
+        this.y = y
+        this.face = face
     }
 
     run(robot) {
         robot.x = this.x
         robot.y = this.y
-        robot.face = this.face.toUpperCase()
+        robot.face = this.face
         robot.is_placed = true
     }
 }
@@ -52,7 +52,7 @@ class ReportCommand {
 module.exports.ReportCommand = ReportCommand
 
 const CMD_MAP = {
-    '^place(\s|$)': PlaceCommand,
+    '^place$': PlaceCommand,
     '^move$': MoveCommand,
     '^report$': ReportCommand,
     '^left$': LeftCommand,
@@ -69,11 +69,11 @@ module.exports.parseCommand = function(command_str) {
     for (const [regexpStr, commandClass] of Object.entries(CMD_MAP)) {
         const regexp = new RegExp(regexpStr, 'i');
         if (regexp.test(cmd_and_args[0])) {
-            return new commandClass(args)
+            return new commandClass(...args)
         }
     }
 
-    console.log(`Unknown command ${command_str}`)
+    console.log(`Unknown or invalid command "${command_str}"`)
 
     return null;
 }
