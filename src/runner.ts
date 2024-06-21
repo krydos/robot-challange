@@ -34,43 +34,31 @@ export class Runner {
 
     fromFile(filepath: string) {
         const command_stream = new readlines(filepath)
-        this.run(() => {
-            const buffer = command_stream.next();
-            if (buffer) {
-                return buffer.toString('ascii')
-            }
-        })
+        this.run(() => command_stream.next()?.toString('ascii'))
     }
 
+    // getInputFunc is going to return a command per call.
     run(getInputFunc: Function) {
         while (true) {
-            const line = getInputFunc()
-
-            if (line === undefined || line === null) {
+            const inputLine = getInputFunc()
+            if (inputLine === undefined || inputLine === null) {
                 break;
             }
 
-            const command = ParseCommand(line);
+            const command = ParseCommand(inputLine);
 
-            if (command.constructor.name == 'NopCommand') {
-                this.outputHandler.write('Unknown command. Nothing has been executed.')
-            }
-
-            if (! this.robot.canMove() && command.constructor.name !== 'PlaceCommand') {
-                continue;
-            }
-
+            // 1. execute the command and get new robot state
             const newState = command.run(this.robot.getState());
+
+            // 2. validate the new state
             if (! this.moveValidator.isMoveValid(this.robot.getState(), newState, this.board)) {
-                this.outputHandler.write('Command is invalid');
-            } else {
-                this.robot.setState(newState)
-                if (command.hasOutput()) {
-                    for (const out of command.getOutput()) {
-                        this.outputHandler.write(out)
-                    }
-                    command.flushOutput();
-                }
+                continue; // don't even tell user that the input is invalid. Just ignore.
+            }
+
+            // 3. set the new state and show the command output if any
+            this.robot.setState(newState)
+            for (const out of command.getOutput()) {
+                this.outputHandler.write(out)
             }
         }
     }
