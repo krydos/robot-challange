@@ -1,3 +1,4 @@
+import { ConsoleOutputHandler } from './src/output_handler';
 import { Runner } from './src/runner';
 
 
@@ -17,7 +18,7 @@ import { Runner } from './src/runner';
 // ignore binary and the script names
 const args = process.argv.slice(2);
 
-const runner = new Runner();
+const runner = new Runner(new ConsoleOutputHandler());
 if (args.length > 0) {
     runner.from_file(args[0]);
 } else {

@@ -4,17 +4,20 @@ const prompt = require('prompt-sync')()
 import { Robot, RobotState } from './robot';
 import { Table } from './table';
 import { ParseCommand } from './commands/parser';
-import { Command } from './commands/common';
+import { IOutputHandler } from './output_handler';
 
 export class Runner {
     robot: Robot;
     table: Table;
-    constructor() {
-        this.robot = new Robot()
-        this.table = {x: 5, y: 5}
+    outputHandler: IOutputHandler;
+
+    constructor(outputHandler: IOutputHandler, robot?: Robot, table?: Table) {
+        this.outputHandler = outputHandler
+        this.robot = robot ? robot : new Robot()
+        this.table = table ? table : {x: 5, y: 5}
     }
     interactive() {
-        console.log('Use Ctrl+c to exit...')
+        this.outputHandler.write('Use Ctrl+c to exit...')
         this.run(() => prompt('> '))
     }
 
@@ -38,9 +41,14 @@ export class Runner {
 
             const newState = command.run(this.robot.getState());
             if (! this.isValidMove(this.robot, this.table, newState)) {
-                console.log('Command is invalid.')
+                this.outputHandler.write('Command is invalid');
             } else {
                 this.robot.setState(newState)
+                if (command.hasOutput()) {
+                    for (const out of command.getOutput()) {
+                        this.outputHandler.write(out)
+                    }
+                }
             }
         }
     }
