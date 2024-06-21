@@ -4,7 +4,9 @@
   "description": "Simulation of a toy robot",
   "main": "index.js",
   "scripts": {
-    "repl": "node index.js",
+    "run": "node ./build/index",
+    "compile": "tsc",
+    "watch": "tsc -w",
     "test": "jest"
   },
   "author": "Ruslan Bekenev",
