@@ -25,24 +25,24 @@ export abstract class Command {
         }
     }
 
+    // Main method of a command.
+    // Try your best to write it without any side effects.
     abstract run(state: RobotState): RobotState;
 
-    // Each command must be responsible for validating its own arguments
-    // and this method helps to do it.
+    // Each command must be responsible for validating its own arguments.
+    // Override this one if you need validation.
     protected hasValidArguments(): boolean {
         return true;
     }
+
+    // It's not job of the command to decide how to output anything.
+    // Use this command to add any output from the command.
+    // It will be handled by the rest of the system.
     protected addOutput(output: string) {
         this.output.push(output)
     }
-    hasOutput() {
-        return !! this.output.length;
-    }
+
     getOutput() {
         return this.output
     }
-    flushOutput(): void {
-        this.output = []
-    }
-
 }
