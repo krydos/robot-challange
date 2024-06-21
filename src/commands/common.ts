@@ -1,9 +1,14 @@
 import { RobotState } from "../robot"
 
-const VALID_DIRECTIONS = ['NORTH', 'SOUTH', 'WEST', 'EAST'] as const;
-export type ValidDirection = typeof VALID_DIRECTIONS[number];
+export enum ValidDirection {
+    NORTH = 'NORTH',
+    SOUTH = 'SOUTH',
+    WEST = 'WEST',
+    EAST = 'EAST',
+}
+
 export function isValidDirection(direction: string): boolean {
-    return VALID_DIRECTIONS.includes(direction as ValidDirection);
+    return Object.values(ValidDirection).includes(direction as ValidDirection);
 }
 
 export class InvalidCommandArguments extends Error {}

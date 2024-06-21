@@ -1,3 +1,4 @@
+import { ValidDirection } from "../src/commands/common"
 import { RobotState } from "../src/robot"
 import { Table } from "../src/table"
 import { SimpleMoveValidator } from "../src/validators/simple_move_validator"
@@ -5,7 +6,7 @@ import { SimpleMoveValidator } from "../src/validators/simple_move_validator"
 const defaultState: RobotState = {
     x: 0,
     y: 0,
-    direction: 'NORTH',
+    direction: ValidDirection.NORTH,
     is_placed: true
 }
 

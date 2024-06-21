@@ -3,9 +3,6 @@ import { Runner } from './src/runner';
 
 
 // TODO show usage
-// TODO commands should be case insensitive
-// TODO validate commands input
-// TODO validate robot movements
 // TODO don't use strings for directions
 // TODO lint variable names
 // TODO think about changing how left & right command works
@@ -13,6 +10,11 @@ import { Runner } from './src/runner';
 // TODO remove mutable field from commands (I don't think I use it)
 // TODO NopCommand and PlaceCommand should not be treated specially in the runner
 // TODO get rid of some DRY in tests
+// TODO make config to configure the board
+// TODO probably use interfaces instead Robot and Table classes in the runner
+// DONE validate robot movements
+// DONE validate commands input
+// DONE commands should be case insensitive
 // DONE show unknown command error in interactive mode
 // DONE get rid of test/data folder
 // DONE convert to ES6 modules
