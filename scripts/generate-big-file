@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+FILEPATH=./tests/data/big.txt
+
+echo "PLACE 0,0,EAST" > "$FILEPATH";
+yes "MOVE" | head -n 50000000 >> "$FILEPATH";
+echo "REPORT" >> "$FILEPATH";

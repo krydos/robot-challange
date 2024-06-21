@@ -4,10 +4,14 @@
   "description": "Simulation of a toy robot",
   "main": "index.js",
   "scripts": {
-    "repl": "node ./build/index",
+    "repl": "node ./build/index.js",
     "compile": "tsc",
     "watch": "tsc -w",
-    "test": "jest"
+    "test": "jest",
+    "test-simple-file": "node ./build/index.js tests/data/simple_3,3,NORTH.txt",
+    "test-broken-file": "node ./build/index.js tests/data/broken_1,0,EAST.txt",
+    "generate-big-file": "./scripts/generate-big-file",
+    "test-big-file": "echo may take around 20 seconds... && node ./build/index.js tests/data/big.txt"
   },
   "author": "Ruslan Bekenev",
   "license": "ISC",
