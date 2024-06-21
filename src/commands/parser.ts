@@ -4,6 +4,7 @@ import { MoveCommand } from "./move_command";
 import { ReportCommand } from "./report_command";
 import { LeftCommand } from "./left_command";
 import { RightCommand } from "./right_command";
+import { NopCommand } from "./nop_command";
 
 const availableCommands = [
     PlaceCommand,
@@ -13,7 +14,7 @@ const availableCommands = [
     RightCommand
 ]
 
-export function ParseCommand(command: string): Command | null {
+export function ParseCommand(command: string): Command {
     const cmd_and_args = command.trim().split(' ');
     let args: string[] = [];
     if (cmd_and_args.length > 1) {
@@ -23,16 +24,11 @@ export function ParseCommand(command: string): Command | null {
     for (const commandClass of availableCommands) {
         const signatureRegexp = new RegExp(commandClass.signature, 'i');
         if (signatureRegexp.test(cmd_and_args[0])) {
-            try {
-                return new commandClass(args)
-            } catch (e) {
-                console.log(e)
-                return null
-            }
+            return new commandClass(args)
         }
     }
 
     console.log(`Unknown or invalid command "${command}"`)
 
-    return null;
+    return new NopCommand(args);
 }
