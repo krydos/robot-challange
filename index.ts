@@ -12,6 +12,7 @@ import { Runner } from './src/runner';
 // TODO place command has terrible arguments handler
 // TODO remove mutable field from commands (I don't think I use it)
 // TODO NopCommand and PlaceCommand should not be treated specially in the runner
+// TODO get rid of some DRY in tests
 // DONE show unknown command error in interactive mode
 // DONE get rid of test/data folder
 // DONE convert to ES6 modules
