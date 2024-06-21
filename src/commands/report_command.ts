@@ -4,9 +4,6 @@ import { RobotState } from "../robot";
 export class ReportCommand extends Command {
     mutable = false;
     static signature = 'report';
-    constructor(
-        private args: any
-    ) { super() }
     run(state: RobotState): RobotState {
         this.addOutput(`${state.x},${state.y},${state.direction}`);
         return state

@@ -1,13 +1,9 @@
-import { Command } from "./common";
+import { Command, isValidDirection } from "./common";
 import { RobotState } from "../robot";
 
 export class PlaceCommand extends Command {
     mutable = true;
     static signature = 'place';
-    constructor(
-        private args: any
-    ) { super() }
-
 
     run(state: RobotState): RobotState {
         return {
@@ -19,5 +15,21 @@ export class PlaceCommand extends Command {
                 is_placed: true
             }
         }
+    }
+
+    protected hasValidArguments(): boolean {
+        if (
+            this.args[0] === undefined
+            || this.args[1] === undefined
+            || isNaN(parseInt(this.args[0]))
+            || isNaN(parseInt(this.args[1]))
+        ) {
+            return false;
+        }
+        if (this.args[2] === undefined || ! isValidDirection(this.args[2].toUpperCase())) {
+            return false;
+        }
+
+        return true;
     }
 }

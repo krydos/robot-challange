@@ -1,3 +1,4 @@
+import { InvalidCommandArguments } from "../src/commands/common";
 import { LeftCommand } from "../src/commands/left_command"
 import { MoveCommand } from "../src/commands/move_command";
 import { NopCommand } from "../src/commands/nop_command";
@@ -29,6 +30,14 @@ describe('Test commands', () => {
             y: 2,
             direction: 'SOUTH',
         })
+    })
+    it('PLACE command throws exception in case of invalid arguments', () => {
+        try { new PlaceCommand(['1', '2', 'UP']) } catch (e) { expect(e).toBeInstanceOf(InvalidCommandArguments) }
+        try { new PlaceCommand(['1', 'A', 'WEST']) } catch (e) { expect(e).toBeInstanceOf(InvalidCommandArguments) }
+        try { new PlaceCommand(['A', '2', 'WEST']) } catch (e) { expect(e).toBeInstanceOf(InvalidCommandArguments) }
+        try { new PlaceCommand(['1', '2', 'WEST', 'UNUSED']) } catch (e) { expect(e).not.toBeInstanceOf(InvalidCommandArguments) }
+        try { new PlaceCommand([]) } catch (e) { expect(e).toBeInstanceOf(InvalidCommandArguments) }
+
     })
     it('MOVE changes coordinates', () => {
         const command = new MoveCommand([]);
