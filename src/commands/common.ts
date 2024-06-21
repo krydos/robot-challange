@@ -34,5 +34,8 @@ export abstract class Command {
     getOutput() {
         return this.output
     }
+    flushOutput(): void {
+        this.output = []
+    }
 
 }

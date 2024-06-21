@@ -15,21 +15,19 @@ const availableCommands = [
 ]
 
 export function ParseCommand(command: string): Command {
-    const cmd_and_args = command.toLowerCase().trim().split(' ').map(chunk => chunk.trim());
+    const cmdWithArgs = command.toLowerCase().trim().split(' ').map(chunk => chunk.trim());
     let args: string[] = [];
 
     // split arguments
-    if (cmd_and_args.length > 1) {
-        args = cmd_and_args[1].split(',')
+    if (cmdWithArgs.length > 1) {
+        args = cmdWithArgs[1].split(',')
     }
 
     for (const commandClass of availableCommands) {
-        if (cmd_and_args[0].startsWith(commandClass.signature)) {
+        if (cmdWithArgs[0].startsWith(commandClass.signature)) {
             return new commandClass(args)
         }
     }
-
-    console.log(`Unknown or invalid command "${command}"`)
 
     return new NopCommand(args);
 }

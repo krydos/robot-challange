@@ -36,8 +36,13 @@ export class Runner {
     }
 
     run(getInputFunc: Function) {
-        let line = null;
-        while (line = getInputFunc()) {
+        while (true) {
+            const line = getInputFunc()
+
+            if (line === undefined) {
+                break;
+            }
+
             const command = ParseCommand(line);
             if (! this.robot.canMove() && command.constructor.name !== 'PlaceCommand') {
                 continue;
@@ -52,6 +57,7 @@ export class Runner {
                     for (const out of command.getOutput()) {
                         this.outputHandler.write(out)
                     }
+                    command.flushOutput();
                 }
             }
         }
