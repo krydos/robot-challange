@@ -14,7 +14,6 @@ export function isValidDirection(direction: string): boolean {
 export class InvalidCommandArguments extends Error {}
 
 export abstract class Command {
-    abstract mutable: boolean;
     static signature: string;
     private output: Array<string> = []
     protected args: Array<any> = []
@@ -27,6 +26,9 @@ export abstract class Command {
     }
 
     abstract run(state: RobotState): RobotState;
+
+    // Each command must be responsible for validating its own arguments
+    // and this method helps to do it.
     protected hasValidArguments(): boolean {
         return true;
     }

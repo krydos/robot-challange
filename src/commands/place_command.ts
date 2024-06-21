@@ -2,7 +2,6 @@ import { Command, isValidDirection } from "./common";
 import { RobotState } from "../robot";
 
 export class PlaceCommand extends Command {
-    mutable = true;
     static signature = 'place';
 
     run(state: RobotState): RobotState {

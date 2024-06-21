@@ -3,15 +3,15 @@ import { Runner } from './src/runner';
 
 
 // TODO show usage
-// TODO don't use strings for directions
 // TODO lint variable names
 // TODO think about changing how left & right command works
-// TODO place command has terrible arguments handler
-// TODO remove mutable field from commands (I don't think I use it)
 // TODO NopCommand and PlaceCommand should not be treated specially in the runner
 // TODO get rid of some DRY in tests
 // TODO make config to configure the board
 // TODO probably use interfaces instead Robot and Table classes in the runner
+// DONE remove mutable field from commands (I don't think I use it)
+// DONE place command has terrible arguments handler
+// DONE don't use strings for directions
 // DONE validate robot movements
 // DONE validate commands input
 // DONE commands should be case insensitive

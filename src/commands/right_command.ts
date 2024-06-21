@@ -2,7 +2,6 @@ import { Command, ValidDirection } from "./common";
 import { RobotState } from "../robot";
 
 export class RightCommand extends Command {
-    mutable = true;
     static signature = 'right'
     run(state: RobotState): RobotState {
         if (state.direction == ValidDirection.NORTH) return { ...state, ...{ direction: ValidDirection.EAST } }
