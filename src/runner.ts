@@ -34,14 +34,21 @@ export class Runner {
 
     fromFile(filepath: string) {
         const command_stream = new readlines(filepath)
-        this.run(() => command_stream.next()?.toString('ascii'))
+        this.run(() => {
+            const line = command_stream.next()
+            if (line) {
+                return line.toString('ascii')
+            }
+            return null
+        })
     }
 
-    // getInputFunc is going to return a command per call.
+    // Main method to run commands.
+    // getInputFunc is going to return a command per call
     run(getInputFunc: Function) {
         while (true) {
             const inputLine = getInputFunc()
-            if (inputLine === undefined || inputLine === null) {
+            if (typeof inputLine !== 'string' && ! inputLine) {
                 break;
             }
 

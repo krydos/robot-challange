@@ -5,8 +5,8 @@ import * as configData from './config.json';
 // TODO show usage
 // TODO lint variable names
 // TODO think about changing how left & right command works
-// TODO NopCommand and PlaceCommand should not be treated specially in the runner
-// TODO get rid of some DRY in tests
+// DONE NopCommand and PlaceCommand should not be treated specially in the runner
+// DONE get rid of some DRY in tests
 // DONE make config to configure the board
 // DONE remove mutable field from commands (I don't think I use it)
 // DONE place command has terrible arguments handler
