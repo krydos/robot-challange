@@ -25,7 +25,12 @@ export function ParseCommand(command: string): Command {
 
     for (const commandClass of availableCommands) {
         if (cmdWithArgs[0].startsWith(commandClass.signature)) {
-            return new commandClass(args)
+            try {
+                return new commandClass(args)
+            } catch(e) {
+                return new NopCommand(args);
+            }
+
         }
     }
 

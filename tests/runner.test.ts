@@ -72,7 +72,7 @@ describe('Test the runner', () => {
         expect(collectedOutput[0]).toBe('1,0,EAST')
         expect(collectedOutput[1]).toBe('2,2,WEST')
     })
-    it('should ignore unknown commands and empty strings', () => {
+    it('should ignore unknown commands, empty strings and broken arguments', () => {
         collectedOutput = []
         const runner = new Runner(new ArrayOutputHandler);
         const gen = inputGenerator([
@@ -80,6 +80,7 @@ describe('Test the runner', () => {
             'MOVE',
             '<UNKNOWN_COMMAND>',
             '',
+            'PLACE 1,1,UP',
             'REPORT',
         ]);
         runner.run(() => gen.next().value)
