@@ -44,6 +44,11 @@ export class Runner {
             }
 
             const command = ParseCommand(line);
+
+            if (command.constructor.name == 'NopCommand') {
+                this.outputHandler.write('Unknown command. Nothing has been executed.')
+            }
+
             if (! this.robot.canMove() && command.constructor.name !== 'PlaceCommand') {
                 continue;
             }

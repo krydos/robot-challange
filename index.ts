@@ -3,7 +3,6 @@ import { Runner } from './src/runner';
 
 
 // TODO show usage
-// TODO show unknown command error in interactive mode
 // TODO commands should be case insensitive
 // TODO validate commands input
 // TODO validate robot movements
@@ -12,6 +11,8 @@ import { Runner } from './src/runner';
 // TODO think about changing how left & right command works
 // TODO place command has terrible arguments handler
 // TODO remove mutable field from commands (I don't think I use it)
+// TODO NopCommand and PlaceCommand should not be treated specially in the runner
+// DONE show unknown command error in interactive mode
 // DONE get rid of test/data folder
 // DONE convert to ES6 modules
 // DONE Mark commands as mutable or not (this should help with figuring out if should check if move is valid)

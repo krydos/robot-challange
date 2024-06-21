@@ -83,6 +83,6 @@ describe('Test the runner', () => {
             'REPORT',
         ]);
         runner.run(() => gen.next().value)
-        expect(collectedOutput[0]).toBe('0,1,NORTH')
+        expect(collectedOutput[collectedOutput.length-1]).toBe('0,1,NORTH')
     })
 })

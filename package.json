@@ -4,7 +4,7 @@
   "description": "Simulation of a toy robot",
   "main": "index.js",
   "scripts": {
-    "run": "node ./build/index",
+    "repl": "node ./build/index",
     "compile": "tsc",
     "watch": "tsc -w",
     "test": "jest"
