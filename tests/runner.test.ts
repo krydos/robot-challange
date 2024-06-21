@@ -72,6 +72,16 @@ describe('Test the runner', () => {
         expect(collectedOutput[0]).toBe('1,0,EAST')
         expect(collectedOutput[1]).toBe('2,2,WEST')
     })
+    it('should trim commands and arguments', () => {
+        collectedOutput = []
+        const runner = new Runner(new ArrayOutputHandler);
+        const gen = inputGenerator([
+            'PLACE  0, 0,NORTH ',
+            'REPORT',
+        ]);
+        runner.run(() => gen.next().value)
+        expect(collectedOutput[0]).toBe('0,0,NORTH')
+    })
     it('should ignore unknown commands, empty strings and broken arguments', () => {
         collectedOutput = []
         const runner = new Runner(new ArrayOutputHandler);

@@ -24,7 +24,7 @@ describe('Test commands', () => {
         expect(command.run(defaultState).direction).toBe(ValidDirection.EAST)
     })
     it('PLACE changes coordinates and direction', () => {
-        const command = new PlaceCommand([1, 2, ValidDirection.SOUTH]);
+        const command = new PlaceCommand(['1', '2', 'SOUTH']);
         expect(command.run(defaultState)).toMatchObject({
             x: 1,
             y: 2,
