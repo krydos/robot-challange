@@ -24,7 +24,7 @@ export class Runner {
     constructor(config?: RunnerConfig) {
         this.outputHandler = config?.outputHandler || new ConsoleOutputHandler()
         this.robot = config?.robot || new Robot()
-        this.table = config?.table || {x: 5, y: 5}
+        this.table = config?.table || {x: 1, y: 1}
         this.moveValidator = config?.moveValidator || new SimpleMoveValidator();
     }
     interactive() {
