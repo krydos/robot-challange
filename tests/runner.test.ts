@@ -56,4 +56,20 @@ describe('Test the runner', () => {
         expect(collectedOutput.length).toBe(1)
         expect(collectedOutput[0]).toBe('1,0,EAST')
     })
+    it('should allow multiple place commands', () => {
+        collectedOutput = []
+        const runner = new Runner(new ArrayOutputHandler);
+        const gen = inputGenerator([
+            'PLACE 0,0,NORTH',
+            'RIGHT',
+            'MOVE',
+            'REPORT',
+            'PLACE 2,2,WEST',
+            'REPORT',
+        ]);
+        runner.run(() => gen.next().value)
+        expect(collectedOutput.length).toBe(2)
+        expect(collectedOutput[0]).toBe('1,0,EAST')
+        expect(collectedOutput[1]).toBe('2,2,WEST')
+    })
 })
