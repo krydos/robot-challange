@@ -8,7 +8,7 @@ export class ReportCommand extends Command {
         private args: any
     ) { super() }
     run(state: RobotState): RobotState {
-        console.log(`${state.x},${state.y},${state.face}`)
+        console.log(`${state.x},${state.y},${state.direction}`)
         return state
     }
 }

@@ -15,7 +15,7 @@ export class PlaceCommand extends Command {
             ...{
                 x: parseInt(this.args[0]),
                 y: parseInt(this.args[1]),
-                face: this.args[2],
+                direction: this.args[2],
                 is_placed: true
             }
         }
