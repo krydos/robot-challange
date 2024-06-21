@@ -1,7 +1,7 @@
 const readlines = require('n-readlines');
 const prompt = require('prompt-sync')()
 
-import { Robot } from './robot';
+import { Robot, RobotState } from './robot';
 import { Table } from './table';
 import { ParseCommand } from './commands/parser';
 import { Command } from './commands/common';
@@ -36,19 +36,17 @@ export class Runner {
                 continue;
             }
 
-            if (! this.isValidMove(this.robot, this.table, command)) {
+            const newState = command.run(this.robot.getState());
+            if (! this.isValidMove(this.robot, this.table, newState)) {
                 console.log('Command is invalid.')
             } else {
-                this.robot.execute(command)
+                this.robot.setState(newState)
             }
         }
     }
 
-    isValidMove(robot: Robot, table: Table, command: Command) {
-        if (! command.mutable) {
-            return true;
-        }
-        const newState = {...robot.getState(), ...command.run(robot.getState())}
+    isValidMove(robot: Robot, table: Table, state: RobotState) {
+        const newState = {...robot.getState(), ...state}
         if (newState.x > table.x || newState.x < 0) {
             return false
         }

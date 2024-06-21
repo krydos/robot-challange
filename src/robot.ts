@@ -17,7 +17,7 @@ export class Robot {
         return this.state;
     }
 
-    execute(command: Command) {
-        this.state = command.run(this.getState());
+    setState(state: RobotState) {
+        this.state = state
     }
 }
