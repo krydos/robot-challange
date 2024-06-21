@@ -13,7 +13,7 @@ export class Runner {
     }
 
     from_file(filepath: string) {
-        const command_stream = this.create_command_stream(filepath)
+        const command_stream = new readlines(filepath)
         this.run(() => {
             const buffer = command_stream.next();
             if (buffer) {
@@ -55,9 +55,5 @@ export class Runner {
             return false
         }
         return true;
-    }
-
-    create_command_stream(filepath: string) {
-        return new readlines(filepath)
     }
 }
