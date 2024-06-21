@@ -20,7 +20,7 @@ const args = process.argv.slice(2);
 
 const runner = new Runner(new ConsoleOutputHandler());
 if (args.length > 0) {
-    runner.from_file(args[0]);
+    runner.fromFile(args[0]);
 } else {
     runner.interactive();
 }
