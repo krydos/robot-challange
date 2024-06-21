@@ -40,7 +40,7 @@ export class Runner {
             }
 
             const newState = command.run(this.robot.getState());
-            if (! this.isValidMove(this.robot, this.table, newState)) {
+            if (! this.isValidMove(this.robot.getState(), newState, this.table)) {
                 this.outputHandler.write('Command is invalid');
             } else {
                 this.robot.setState(newState)
@@ -53,8 +53,7 @@ export class Runner {
         }
     }
 
-    isValidMove(robot: Robot, table: Table, state: RobotState) {
-        const newState = {...robot.getState(), ...state}
+    isValidMove(currentState: RobotState, newState: RobotState, table: Table) {
         if (newState.x > table.x || newState.x < 0) {
             return false
         }
