@@ -2,7 +2,6 @@ import { IOutputHandler } from "../src/output_handler";
 import { Runner } from "../src/runner"
 
 let collectedOutput: Array<string> = []
-
 const ArrayOutputHandler = class implements IOutputHandler {
     write(output: string) {
         collectedOutput.push(output)
@@ -15,9 +14,13 @@ function* inputGenerator(moves: Array<string>) {
     }
 };
 
+function getDefaultRunner() {
+    return new Runner({outputHandler: new ArrayOutputHandler()})
+}
+
 describe('Test the runner', () => {
     it('execute commands returned from the input function', () => {
-        const runner = new Runner({outputHandler: new ArrayOutputHandler()});
+        const runner = getDefaultRunner();
         const gen = inputGenerator([
             'PLACE 0,0,NORTH',
             'MOVE'
@@ -27,7 +30,7 @@ describe('Test the runner', () => {
     })
     it('commands are ignored if robot is not placed', () => {
         collectedOutput = []
-        const runner = new Runner({outputHandler: new ArrayOutputHandler});
+        const runner = getDefaultRunner();
         const gen = inputGenerator([
             'MOVE',
             'LEFT',
@@ -45,7 +48,7 @@ describe('Test the runner', () => {
     })
     it('report command should report to output handler', () => {
         collectedOutput = []
-        const runner = new Runner({outputHandler: new ArrayOutputHandler});
+        const runner = getDefaultRunner();
         const gen = inputGenerator([
             'PLACE 0,0,NORTH',
             'RIGHT',
@@ -58,7 +61,7 @@ describe('Test the runner', () => {
     })
     it('should allow multiple place commands', () => {
         collectedOutput = []
-        const runner = new Runner({outputHandler: new ArrayOutputHandler});
+        const runner = getDefaultRunner();
         const gen = inputGenerator([
             'PLACE 0,0,NORTH',
             'RIGHT',
@@ -74,7 +77,7 @@ describe('Test the runner', () => {
     })
     it('should trim commands and arguments', () => {
         collectedOutput = []
-        const runner = new Runner({outputHandler: new ArrayOutputHandler});
+        const runner = getDefaultRunner();
         const gen = inputGenerator([
             'PLACE  0, 0,NORTH ',
             'REPORT',
@@ -84,7 +87,7 @@ describe('Test the runner', () => {
     })
     it('should ignore unknown commands, empty strings and broken arguments', () => {
         collectedOutput = []
-        const runner = new Runner({outputHandler: new ArrayOutputHandler});
+        const runner = getDefaultRunner();
         const gen = inputGenerator([
             'PLACE 0,0,NORTH',
             'MOVE',

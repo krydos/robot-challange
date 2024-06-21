@@ -1,11 +1,15 @@
 import { Robot } from "../src/robot"
 import { ParseCommand } from "../src/commands/parser";
 
+function runCommand(robot: Robot, command: string) {
+    robot.setState(ParseCommand(command).run(robot.getState()));
+}
+
 describe('Basic examples from the task description', () => {
     it('place and move commands are changing position of the robot', () => {
         const robot = new Robot();
-        robot.setState(ParseCommand('PLACE 0,0,NORTH').run(robot.getState()));
-        robot.setState(ParseCommand('MOVE').run(robot.getState()));
+        runCommand(robot, 'PLACE 0,0,NORTH');
+        runCommand(robot, 'MOVE');
         expect(robot.getState()).toEqual({
             y: 1,
             x: 0,
@@ -16,18 +20,18 @@ describe('Basic examples from the task description', () => {
 
     it('robot can turn', () => {
         const robot = new Robot();
-        robot.setState(ParseCommand('PLACE 0,0,NORTH').run(robot.getState()));
-        robot.setState(ParseCommand('LEFT').run(robot.getState()));
+        runCommand(robot, 'PLACE 0,0,NORTH');
+        runCommand(robot, 'LEFT');
         expect(robot.getState().direction).toBe('WEST')
-        robot.setState(ParseCommand('RIGHT').run(robot.getState()));
+        runCommand(robot, 'RIGHT')
         expect(robot.getState().direction).toBe('NORTH')
     })
 
     it('robot can be placed anywhere', () => {
         const robot = new Robot();
-        robot.setState(ParseCommand('PLACE 1,3,EAST').run(robot.getState()));
-        expect(robot.getState().x).toBe(1)
-        expect(robot.getState().y).toBe(3)
+        runCommand(robot, 'PLACE 999,-999,EAST')
+        expect(robot.getState().x).toBe(999)
+        expect(robot.getState().y).toBe(-999)
         expect(robot.getState().direction).toBe('EAST')
     })
 })

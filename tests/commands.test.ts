@@ -35,6 +35,12 @@ describe('Test commands', () => {
         try { new PlaceCommand(['1', '2', 'UP']) } catch (e) { expect(e).toBeInstanceOf(InvalidCommandArguments) }
         try { new PlaceCommand(['1', 'A', 'WEST']) } catch (e) { expect(e).toBeInstanceOf(InvalidCommandArguments) }
         try { new PlaceCommand(['A', '2', 'WEST']) } catch (e) { expect(e).toBeInstanceOf(InvalidCommandArguments) }
+
+        // Attention: it must not throw if there are too many arguments.
+        // Every possible argument from a command expression is sent to a command
+        // and command can choose what to do with it.
+        // At this moment PlaceCommand doesn't throw an error in this case
+        // because it seems reasonable to me (ruslan)
         try { new PlaceCommand(['1', '2', 'WEST', 'UNUSED']) } catch (e) { expect(e).not.toBeInstanceOf(InvalidCommandArguments) }
         try { new PlaceCommand([]) } catch (e) { expect(e).toBeInstanceOf(InvalidCommandArguments) }
 
