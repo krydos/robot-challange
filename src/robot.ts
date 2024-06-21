@@ -3,14 +3,14 @@ import { Command, ValidDirection } from "./commands/common";
 export type RobotState = {
     x: number,
     y: number,
-    direction: ValidDirection,
+    direction: ValidDirection | undefined,
     is_placed: boolean,
 }
 
 export class Robot {
     private state: RobotState;
     constructor() {
-        this.state = { x: 0, y: 0, direction: 'NORTH', is_placed: false }
+        this.state = { x: 0, y: 0, direction: undefined, is_placed: false }
     }
 
     getState() {

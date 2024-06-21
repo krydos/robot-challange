@@ -7,6 +7,12 @@ import { ParseCommand } from './commands/parser';
 import { Command } from './commands/common';
 
 export class Runner {
+    robot: Robot;
+    table: Table;
+    constructor() {
+        this.robot = new Robot()
+        this.table = {x: 5, y: 5}
+    }
     interactive() {
         console.log('Use Ctrl+c to exit...')
         this.run(() => prompt('> '))
@@ -23,11 +29,6 @@ export class Runner {
     }
 
     run(getInputFunc: Function) {
-        const robot = new Robot()
-        const table = {
-            x: 5,
-            y: 5,
-        }
         let line = null;
         while (line = getInputFunc()) {
             const command = ParseCommand(line);
@@ -35,10 +36,10 @@ export class Runner {
                 continue;
             }
 
-            if (! this.isValidMove(robot, table, command)) {
+            if (! this.isValidMove(this.robot, this.table, command)) {
                 console.log('Command is invalid.')
             } else {
-                robot.execute(command)
+                this.robot.execute(command)
             }
         }
     }

@@ -7,6 +7,8 @@ import { Runner } from './src/runner';
 // TODO validate commands input
 // TODO validate robot movements
 // TODO don't use strings for directions
+// TODO lint variable names
+// TODO think about changing how left & right command works
 // DONE get rid of test/data folder
 // DONE convert to ES6 modules
 // DONE Mark commands as mutable or not (this should help with figuring out if should check if move is valid)
