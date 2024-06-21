@@ -4,9 +4,16 @@ const prompt = require('prompt-sync')()
 import { Robot, RobotState } from './robot';
 import { Table } from './table';
 import { ParseCommand } from './commands/parser';
-import { IOutputHandler } from './output_handler';
+import { ConsoleOutputHandler, IOutputHandler } from './output_handler';
 import { IMoveValidator } from './validators/common';
 import { SimpleMoveValidator } from './validators/simple_move_validator';
+
+export type RunnerConfig = {
+    robot?: Robot,
+    table?: Table,
+    outputHandler?: IOutputHandler
+    moveValidator?: IMoveValidator
+}
 
 export class Runner {
     robot: Robot;
@@ -14,11 +21,11 @@ export class Runner {
     outputHandler: IOutputHandler;
     moveValidator: IMoveValidator;
 
-    constructor(outputHandler: IOutputHandler, robot?: Robot, table?: Table, moveValidator?: IMoveValidator) {
-        this.outputHandler = outputHandler
-        this.robot = robot ? robot : new Robot()
-        this.table = table ? table : {x: 5, y: 5}
-        this.moveValidator = moveValidator ? moveValidator : new SimpleMoveValidator();
+    constructor(config?: RunnerConfig) {
+        this.outputHandler = config?.outputHandler || new ConsoleOutputHandler()
+        this.robot = config?.robot || new Robot()
+        this.table = config?.table || {x: 5, y: 5}
+        this.moveValidator = config?.moveValidator || new SimpleMoveValidator();
     }
     interactive() {
         this.outputHandler.write('Use Ctrl+c to exit...')

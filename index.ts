@@ -1,5 +1,5 @@
-import { ConsoleOutputHandler } from './src/output_handler';
-import { Runner } from './src/runner';
+import { Runner, RunnerConfig } from './src/runner';
+import * as configData from './config.json';
 
 
 // TODO show usage
@@ -7,8 +7,7 @@ import { Runner } from './src/runner';
 // TODO think about changing how left & right command works
 // TODO NopCommand and PlaceCommand should not be treated specially in the runner
 // TODO get rid of some DRY in tests
-// TODO make config to configure the board
-// TODO probably use interfaces instead Robot and Table classes in the runner
+// DONE make config to configure the board
 // DONE remove mutable field from commands (I don't think I use it)
 // DONE place command has terrible arguments handler
 // DONE don't use strings for directions
@@ -21,10 +20,10 @@ import { Runner } from './src/runner';
 // DONE Mark commands as mutable or not (this should help with figuring out if should check if move is valid)
 
 
-// ignore binary and the script names
+// ignore binary and the script name
 const args = process.argv.slice(2);
 
-const runner = new Runner(new ConsoleOutputHandler());
+const runner = new Runner(configData);
 if (args.length > 0) {
     runner.fromFile(args[0]);
 } else {
