@@ -46,7 +46,7 @@ export class Runner {
         while (true) {
             const line = getInputFunc()
 
-            if (line === undefined) {
+            if (line === undefined || line === null) {
                 break;
             }
 

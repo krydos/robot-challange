@@ -30,6 +30,9 @@ function fetchArguments(command: string): Array<string> {
     return match[1].split(',').map(arg => arg.trim());
 }
 
+// We get commandExpression from user input
+// and it can easily be anything.
+// Treat it with caution.
 export function ParseCommand(commandExpression: string): Command {
     commandExpression = commandExpression.trim();
     const cmd = fetchCommand(commandExpression);
