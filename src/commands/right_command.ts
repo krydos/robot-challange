@@ -3,7 +3,7 @@ import { RobotState } from "../robot";
 
 export class RightCommand extends Command {
     mutable = true;
-    static signature = '^right$'
+    static signature = 'right'
     constructor(
         private args: any
     ) { super() }

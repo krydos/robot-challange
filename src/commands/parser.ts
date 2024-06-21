@@ -15,15 +15,16 @@ const availableCommands = [
 ]
 
 export function ParseCommand(command: string): Command {
-    const cmd_and_args = command.trim().split(' ');
+    const cmd_and_args = command.toLowerCase().trim().split(' ').map(chunk => chunk.trim());
     let args: string[] = [];
+
+    // split arguments
     if (cmd_and_args.length > 1) {
         args = cmd_and_args[1].split(',')
     }
 
     for (const commandClass of availableCommands) {
-        const signatureRegexp = new RegExp(commandClass.signature, 'i');
-        if (signatureRegexp.test(cmd_and_args[0])) {
+        if (cmd_and_args[0].startsWith(commandClass.signature)) {
             return new commandClass(args)
         }
     }

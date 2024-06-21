@@ -3,7 +3,7 @@ import { RobotState } from "../robot";
 
 export class ReportCommand extends Command {
     mutable = false;
-    static signature = '^report$';
+    static signature = 'report';
     constructor(
         private args: any
     ) { super() }
