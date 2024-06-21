@@ -14,17 +14,29 @@ const availableCommands = [
     RightCommand
 ]
 
-export function ParseCommand(command: string): Command {
-    const cmdWithArgs = command.toLowerCase().trim().split(' ').map(chunk => chunk.trim());
-    let args: string[] = [];
-
-    // split arguments
-    if (cmdWithArgs.length > 1) {
-        args = cmdWithArgs[1].split(',')
+function fetchCommand(command: string): string {
+    const match = command.match(/^(\w+)\s*/)
+    if (! match) {
+        return ''
+    }
+    return match[1].trim()
+}
+function fetchArguments(command: string): Array<string> {
+    const match = command.match(/^\w+\s(.+?)$/)
+    if (! match) {
+        return [];
     }
 
+    return match[1].split(',').map(arg => arg.trim());
+}
+
+export function ParseCommand(commandExpression: string): Command {
+    commandExpression = commandExpression.trim();
+    const cmd = fetchCommand(commandExpression);
+    const args = fetchArguments(commandExpression);
+
     for (const commandClass of availableCommands) {
-        if (cmdWithArgs[0].startsWith(commandClass.signature)) {
+        if (cmd.toLowerCase().startsWith(commandClass.signature.toLowerCase())) {
             try {
                 return new commandClass(args)
             } catch(e) {
