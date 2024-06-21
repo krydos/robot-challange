@@ -48,6 +48,8 @@ export class Runner {
     run(getInputFunc: Function) {
         while (true) {
             const inputLine = getInputFunc()
+
+            // empty strings should not break the loop
             if (typeof inputLine !== 'string' && ! inputLine) {
                 break;
             }
