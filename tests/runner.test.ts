@@ -64,13 +64,13 @@ describe('Test the runner', () => {
             'RIGHT',
             'MOVE',
             'REPORT',
-            'PLACE 2,2,WEST',
+            'PLACE 1,1,WEST',
             'REPORT',
         ]);
         runner.run(() => gen.next().value)
         expect(collectedOutput.length).toBe(2)
         expect(collectedOutput[0]).toBe('1,0,EAST')
-        expect(collectedOutput[1]).toBe('2,2,WEST')
+        expect(collectedOutput[1]).toBe('1,1,WEST')
     })
     it('should trim commands and arguments', () => {
         collectedOutput = []

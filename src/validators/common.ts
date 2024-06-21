@@ -1,6 +1,6 @@
 import { RobotState } from "../robot";
-import { Table } from "../table";
+import { Board } from "../board";
 
 export interface IMoveValidator {
-    isMoveValid(currentState: RobotState, newState: RobotState, table: Table): boolean
+    isMoveValid(currentState: RobotState, newState: RobotState, board: Board): boolean
 }

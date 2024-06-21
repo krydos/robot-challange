@@ -2,7 +2,7 @@ const readlines = require('n-readlines');
 const prompt = require('prompt-sync')()
 
 import { Robot, RobotState } from './robot';
-import { Table } from './table';
+import { Board } from './board';
 import { ParseCommand } from './commands/parser';
 import { ConsoleOutputHandler, IOutputHandler } from './output_handler';
 import { IMoveValidator } from './validators/common';
@@ -10,21 +10,21 @@ import { SimpleMoveValidator } from './validators/simple_move_validator';
 
 export type RunnerConfig = {
     robot?: Robot,
-    table?: Table,
+    board?: Board,
     outputHandler?: IOutputHandler
     moveValidator?: IMoveValidator
 }
 
 export class Runner {
     robot: Robot;
-    table: Table;
+    board: Board;
     outputHandler: IOutputHandler;
     moveValidator: IMoveValidator;
 
     constructor(config?: RunnerConfig) {
         this.outputHandler = config?.outputHandler || new ConsoleOutputHandler()
         this.robot = config?.robot || new Robot()
-        this.table = config?.table || {x: 1, y: 1}
+        this.board = config?.board || {x: 1, y: 1}
         this.moveValidator = config?.moveValidator || new SimpleMoveValidator();
     }
     interactive() {
@@ -61,7 +61,7 @@ export class Runner {
             }
 
             const newState = command.run(this.robot.getState());
-            if (! this.moveValidator.isMoveValid(this.robot.getState(), newState, this.table)) {
+            if (! this.moveValidator.isMoveValid(this.robot.getState(), newState, this.board)) {
                 this.outputHandler.write('Command is invalid');
             } else {
                 this.robot.setState(newState)
