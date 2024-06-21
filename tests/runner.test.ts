@@ -15,8 +15,8 @@ function* inputGenerator(moves: Array<string>) {
     }
 };
 
-describe('Check the runner', () => {
-    it('should run commands returned from the input function', () => {
+describe('Test the runner', () => {
+    it('execute commands returned from the input function', () => {
         const runner = new Runner(new ArrayOutputHandler());
         const gen = inputGenerator([
             'PLACE 0,0,NORTH',
@@ -25,12 +25,14 @@ describe('Check the runner', () => {
         runner.run(() => gen.next().value)
         expect(runner.robot.getState()).toMatchObject({direction: 'NORTH', y: 1})
     })
-    it('should not change the state of robot if robot is not placed', () => {
+    it('commands are ignored if robot is not placed', () => {
+        collectedOutput = []
         const runner = new Runner(new ArrayOutputHandler);
         const gen = inputGenerator([
             'MOVE',
             'LEFT',
             'MOVE',
+            'REPORT'
         ]);
         runner.run(() => gen.next().value)
         expect(runner.robot.getState()).toMatchObject({
@@ -39,6 +41,7 @@ describe('Check the runner', () => {
             is_placed: false,
             direction: undefined
         })
+        expect(collectedOutput.length).toBe(0) // no output from REPORT
     })
     it('report command should report to output handler', () => {
         collectedOutput = []

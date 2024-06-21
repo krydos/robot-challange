@@ -20,4 +20,8 @@ export class Robot {
     setState(state: RobotState) {
         this.state = state
     }
+
+    canMove() {
+        return this.state.is_placed
+    }
 }

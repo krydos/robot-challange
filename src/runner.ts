@@ -39,7 +39,7 @@ export class Runner {
         let line = null;
         while (line = getInputFunc()) {
             const command = ParseCommand(line);
-            if (! command) {
+            if (! this.robot.canMove() && command.constructor.name !== 'PlaceCommand') {
                 continue;
             }
 
