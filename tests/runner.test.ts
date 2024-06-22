@@ -1,5 +1,6 @@
 import { SimpleBoard } from "../src/board";
 import { OutputHandler } from "../src/output_handler";
+import { SimpleParser } from "../src/parsers/simple_parser";
 import { StateFullRobot, SimpleRobot } from "../src/robot";
 import { Runner } from "../src/runner"
 import { SimpleMoveValidator } from "../src/validators/simple_move_validator";
@@ -24,6 +25,7 @@ function setupDefaultRunner(): [Runner, StateFullRobot] {
         board: new SimpleBoard(5, 5),
         outputHandler: new ArrayOutputHandler(),
         moveValidator: new SimpleMoveValidator(),
+        commandParser: new SimpleParser()
     })
 
     return [runner, robot]

@@ -2,16 +2,17 @@ const readlines = require('n-readlines');
 const prompt = require('prompt-sync')()
 
 import { StateFullRobot } from './robot';
-import { Boundaries2D, SimpleBoard } from './board';
-import { ParseCommand } from './commands/parser';
+import { Boundaries2D } from './board';
 import { MoveValidator2D } from './validators/common';
 import { OutputHandler } from './output_handler';
+import { ParseCommand } from './parsers/base_parser';
 
 export type RunnerConfig = {
     robot: StateFullRobot,
     board: Boundaries2D,
     outputHandler: OutputHandler
     moveValidator: MoveValidator2D
+    commandParser: ParseCommand,
 }
 
 export class Runner {
@@ -44,7 +45,7 @@ export class Runner {
                 break;
             }
 
-            const command = ParseCommand(inputLine);
+            const command = this.config.commandParser.parseCommand(inputLine)
 
             // 1. execute the command and get new robot state
             const newState = command.run(this.config.robot.getState());

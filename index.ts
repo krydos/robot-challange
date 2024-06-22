@@ -1,14 +1,16 @@
-import { Runner, RunnerConfig } from './src/runner';
+import { Runner } from './src/runner';
 import * as configData from './config.json';
 import { SimpleBoard } from './src/board';
 import { SimpleRobot } from './src/robot';
 import { ConsoleOutputHandler } from './src/output_handler';
 import { SimpleMoveValidator } from './src/validators/simple_move_validator';
+import { SimpleParser } from './src/parsers/simple_parser';
 
 
 // TODO show usage
 // TODO lint variable names
-// TODO think about changing how left & right command works
+// DONE negative board dimensions shouldn't be possible... I guess...
+// DONE think about changing how left & right command works
 // DONE NopCommand and PlaceCommand should not be treated specially in the runner
 // DONE get rid of some DRY in tests
 // DONE make config to configure the board
@@ -31,7 +33,8 @@ const config = {
     robot: new SimpleRobot(),
     board: new SimpleBoard(configData?.board?.x || 5, configData?.board?.y || 5),
     outputHandler: new ConsoleOutputHandler(),
-    moveValidator: new SimpleMoveValidator()
+    moveValidator: new SimpleMoveValidator(),
+    commandParser: new SimpleParser()
 }
 
 const runner = new Runner(config);

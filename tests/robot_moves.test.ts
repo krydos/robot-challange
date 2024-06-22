@@ -1,8 +1,9 @@
 import { SimpleRobot } from "../src/robot"
-import { ParseCommand } from "../src/commands/parser";
+import { SimpleParser } from "../src/parsers/simple_parser";
 
 function runCommand(robot: SimpleRobot, command: string) {
-    robot.setState(ParseCommand(command).run(robot.getState()));
+    const parser = new SimpleParser();
+    robot.setState(parser.parseCommand(command).run(robot.getState()));
 }
 
 describe('Basic examples from the task description', () => {
