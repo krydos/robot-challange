@@ -11,7 +11,7 @@ const args = process.argv.slice(2);
 
 const config = {
     robot: new SimpleRobot(),
-    board: new SimpleBoard(configData?.board?.x || 5, configData?.board?.y || 5),
+    board: new SimpleBoard(configData?.board?.cols || 5, configData?.board?.rows || 5),
     outputHandler: new ConsoleOutputHandler(),
     moveValidator: new SimpleMoveValidator(),
     commandParser: new SimpleParser()
