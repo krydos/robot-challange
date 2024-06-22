@@ -1,34 +1,24 @@
 const readlines = require('n-readlines');
 const prompt = require('prompt-sync')()
 
-import { Robot, RobotState } from './robot';
-import { Board } from './board';
+import { StateFullRobot } from './robot';
+import { Boundaries2D, SimpleBoard } from './board';
 import { ParseCommand } from './commands/parser';
-import { ConsoleOutputHandler, IOutputHandler } from './output_handler';
-import { IMoveValidator } from './validators/common';
-import { SimpleMoveValidator } from './validators/simple_move_validator';
+import { MoveValidator2D } from './validators/common';
+import { OutputHandler } from './output_handler';
 
 export type RunnerConfig = {
-    robot?: Robot,
-    board?: Board,
-    outputHandler?: IOutputHandler
-    moveValidator?: IMoveValidator
+    robot: StateFullRobot,
+    board: Boundaries2D,
+    outputHandler: OutputHandler
+    moveValidator: MoveValidator2D
 }
 
 export class Runner {
-    robot: Robot;
-    board: Board;
-    outputHandler: IOutputHandler;
-    moveValidator: IMoveValidator;
+    constructor(private config: RunnerConfig) {}
 
-    constructor(config?: RunnerConfig) {
-        this.outputHandler = config?.outputHandler || new ConsoleOutputHandler()
-        this.robot = config?.robot || new Robot()
-        this.board = config?.board || {x: 1, y: 1}
-        this.moveValidator = config?.moveValidator || new SimpleMoveValidator();
-    }
     interactive() {
-        this.outputHandler.write('Use Ctrl+c to exit...')
+        this.config.outputHandler.write('Use Ctrl+C to exit...')
         this.run(() => prompt('> '))
     }
 
@@ -57,17 +47,17 @@ export class Runner {
             const command = ParseCommand(inputLine);
 
             // 1. execute the command and get new robot state
-            const newState = command.run(this.robot.getState());
+            const newState = command.run(this.config.robot.getState());
 
             // 2. validate the new state
-            if (! this.moveValidator.isMoveValid(this.robot.getState(), newState, this.board)) {
+            if (! this.config.moveValidator.isMoveValid(this.config.robot.getState(), newState, this.config.board)) {
                 continue; // don't even tell user that the input is invalid. Just ignore.
             }
 
             // 3. set the new state and show the command output if any
-            this.robot.setState(newState)
+            this.config.robot.setState(newState)
             for (const out of command.getOutput()) {
-                this.outputHandler.write(out)
+                this.config.outputHandler.write(out)
             }
         }
     }

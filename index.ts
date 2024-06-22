@@ -1,5 +1,9 @@
 import { Runner, RunnerConfig } from './src/runner';
 import * as configData from './config.json';
+import { SimpleBoard } from './src/board';
+import { SimpleRobot } from './src/robot';
+import { ConsoleOutputHandler } from './src/output_handler';
+import { SimpleMoveValidator } from './src/validators/simple_move_validator';
 
 
 // TODO show usage
@@ -23,7 +27,14 @@ import * as configData from './config.json';
 // ignore binary and the script name
 const args = process.argv.slice(2);
 
-const runner = new Runner(configData);
+const config = {
+    robot: new SimpleRobot(),
+    board: new SimpleBoard(configData?.board?.x || 5, configData?.board?.y || 5),
+    outputHandler: new ConsoleOutputHandler(),
+    moveValidator: new SimpleMoveValidator()
+}
+
+const runner = new Runner(config);
 if (args.length > 0) {
     runner.fromFile(args[0]);
 } else {

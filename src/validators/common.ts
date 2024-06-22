@@ -1,6 +1,6 @@
 import { RobotState } from "../robot";
-import { Board } from "../board";
+import { Boundaries2D } from "../board";
 
-export interface IMoveValidator {
-    isMoveValid(currentState: RobotState, newState: RobotState, board: Board): boolean
+export interface MoveValidator2D {
+    isMoveValid(currentState: RobotState, newState: RobotState, board: Boundaries2D): boolean
 }

@@ -1,4 +1,4 @@
-import { Command, ValidDirection } from "./commands/common";
+import { ValidDirection } from "./commands/common";
 
 export type RobotState = {
     x: number,
@@ -7,7 +7,12 @@ export type RobotState = {
     is_placed: boolean,
 }
 
-export class Robot {
+export interface StateFullRobot {
+    getState(): RobotState
+    setState(state: RobotState): void
+}
+
+export class SimpleRobot implements StateFullRobot {
     private state: RobotState;
     constructor() {
         this.state = { x: 0, y: 0, direction: undefined, is_placed: false }
@@ -19,9 +24,5 @@ export class Robot {
 
     setState(state: RobotState) {
         this.state = state
-    }
-
-    canMove() {
-        return this.state.is_placed
     }
 }

@@ -1,16 +1,16 @@
 import { RobotState } from "../robot";
-import { Board } from "../board";
-import { IMoveValidator } from "./common";
+import { Boundaries2D } from "../board";
+import { MoveValidator2D } from "./common";
 
-export class SimpleMoveValidator implements IMoveValidator {
-    isMoveValid(currentState: RobotState, newState: RobotState, board: Board): boolean {
+export class SimpleMoveValidator implements MoveValidator2D {
+    isMoveValid(currentState: RobotState, newState: RobotState, board: Boundaries2D): boolean {
         if (! currentState.is_placed && ! newState.is_placed) {
             return false
         }
-        if (newState.x > board.x || newState.x < 0) {
+        if (newState.x > board.getMaxX() || newState.x < board.getMinX()) {
             return false
         }
-        if (newState.y > board.y || newState.y < 0) {
+        if (newState.y > board.getMaxY() || newState.y < board.getMinY()) {
             return false
         }
         return true;

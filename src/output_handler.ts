@@ -1,4 +1,4 @@
-export interface IOutputHandler {
+export interface OutputHandler {
     write(output: string): void
 }
 

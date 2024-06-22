@@ -1,8 +1,11 @@
-import { IOutputHandler } from "../src/output_handler";
+import { SimpleBoard } from "../src/board";
+import { OutputHandler } from "../src/output_handler";
+import { StateFullRobot, SimpleRobot } from "../src/robot";
 import { Runner } from "../src/runner"
+import { SimpleMoveValidator } from "../src/validators/simple_move_validator";
 
 let collectedOutput: Array<string> = []
-const ArrayOutputHandler = class implements IOutputHandler {
+const ArrayOutputHandler = class implements OutputHandler {
     write(output: string) {
         collectedOutput.push(output)
     }
@@ -14,23 +17,31 @@ function* inputGenerator(moves: Array<string>) {
     }
 };
 
-function getDefaultRunner() {
-    return new Runner({outputHandler: new ArrayOutputHandler()})
+function setupDefaultRunner(): [Runner, StateFullRobot] {
+    const robot = new SimpleRobot();
+    const runner = new Runner({
+        robot: robot,
+        board: new SimpleBoard(5, 5),
+        outputHandler: new ArrayOutputHandler(),
+        moveValidator: new SimpleMoveValidator(),
+    })
+
+    return [runner, robot]
 }
 
 describe('Test the runner', () => {
     it('execute commands returned from the input function', () => {
-        const runner = getDefaultRunner();
+        const [runner, robot] = setupDefaultRunner();
         const gen = inputGenerator([
             'PLACE 0,0,NORTH',
             'MOVE'
         ]);
         runner.run(() => gen.next().value)
-        expect(runner.robot.getState()).toMatchObject({direction: 'NORTH', y: 1})
+        expect(robot.getState()).toMatchObject({direction: 'NORTH', y: 1})
     })
     it('commands are ignored if robot is not placed', () => {
         collectedOutput = []
-        const runner = getDefaultRunner();
+        const [runner, robot] = setupDefaultRunner();
         const gen = inputGenerator([
             'MOVE',
             'LEFT',
@@ -38,7 +49,7 @@ describe('Test the runner', () => {
             'REPORT'
         ]);
         runner.run(() => gen.next().value)
-        expect(runner.robot.getState()).toMatchObject({
+        expect(robot.getState()).toMatchObject({
             x: 0,
             y: 0,
             is_placed: false,
@@ -48,7 +59,7 @@ describe('Test the runner', () => {
     })
     it('report command should report to output handler', () => {
         collectedOutput = []
-        const runner = getDefaultRunner();
+        const [runner, _] = setupDefaultRunner();
         const gen = inputGenerator([
             'PLACE 0,0,NORTH',
             'RIGHT',
@@ -61,7 +72,7 @@ describe('Test the runner', () => {
     })
     it('should allow multiple place commands', () => {
         collectedOutput = []
-        const runner = getDefaultRunner();
+        const [runner, _] = setupDefaultRunner();
         const gen = inputGenerator([
             'PLACE 0,0,NORTH',
             'RIGHT',
@@ -77,7 +88,7 @@ describe('Test the runner', () => {
     })
     it('should trim commands and arguments', () => {
         collectedOutput = []
-        const runner = getDefaultRunner();
+        const [runner, _] = setupDefaultRunner();
         const gen = inputGenerator([
             'PLACE  0, 0,NORTH ',
             'REPORT',
@@ -87,13 +98,15 @@ describe('Test the runner', () => {
     })
     it('should ignore unknown commands, empty strings and broken arguments', () => {
         collectedOutput = []
-        const runner = getDefaultRunner();
+        const [runner, _] = setupDefaultRunner();
         const gen = inputGenerator([
             'PLACE 0,0,NORTH',
             'MOVE',
             '<UNKNOWN_COMMAND>',
             '',
             'PLACE 1,1,UP',
+            'PLACE 1,,UP',
+            'PLACE ,,,',
             'REPORT',
         ]);
         runner.run(() => gen.next().value)

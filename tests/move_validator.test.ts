@@ -1,6 +1,6 @@
 import { ValidDirection } from "../src/commands/common"
 import { RobotState } from "../src/robot"
-import { Board } from "../src/board"
+import { SimpleBoard } from "../src/board"
 import { SimpleMoveValidator } from "../src/validators/simple_move_validator"
 
 const defaultState: RobotState = {
@@ -10,10 +10,7 @@ const defaultState: RobotState = {
     is_placed: true
 }
 
-const board: Board = {
-    x: 5,
-    y: 5
-}
+const board = new SimpleBoard(5,5)
 
 describe('Simple move validator', () => {
     it('return false in case of out of boundaries', () => {
