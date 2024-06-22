@@ -36,7 +36,7 @@ export abstract class Command {
     }
 
     // It's not job of the command to decide how to output anything.
-    // Use this command to add any output from the command.
+    // Use this method to add any output from the command.
     // It will be handled by the rest of the system.
     protected addOutput(output: string) {
         this.output.push(output)

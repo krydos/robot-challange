@@ -6,6 +6,7 @@ import { LeftCommand } from "./left_command";
 import { RightCommand } from "./right_command";
 import { NopCommand } from "./nop_command";
 
+// Modify this array to add new command.
 const availableCommands = [
     PlaceCommand,
     MoveCommand,
@@ -33,6 +34,7 @@ function fetchArguments(command: string): Array<string> {
 // We get commandExpression from user input
 // and it can easily be anything.
 // Treat it with caution.
+// NopCommand is returned when commandExpression cannot be parsed.
 export function ParseCommand(commandExpression: string): Command {
     commandExpression = commandExpression.trim();
     const cmd = fetchCommand(commandExpression);
