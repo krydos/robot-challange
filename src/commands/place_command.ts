@@ -1,5 +1,6 @@
-import { Command, isValidDirection } from "./common";
+import { Command } from "./base_command";
 import { RobotState } from "../robot";
+import { isValidDirection } from "./utils";
 
 export class PlaceCommand extends Command {
     static signature = 'place';

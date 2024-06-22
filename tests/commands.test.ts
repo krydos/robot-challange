@@ -1,10 +1,10 @@
-import { InvalidCommandArguments, ValidDirection } from "../src/commands/common";
 import { LeftCommand } from "../src/commands/left_command"
 import { MoveCommand } from "../src/commands/move_command";
 import { NopCommand } from "../src/commands/nop_command";
 import { PlaceCommand } from "../src/commands/place_command";
 import { ReportCommand } from "../src/commands/report_command";
 import { RightCommand } from "../src/commands/right_command";
+import { InvalidCommandArguments, ValidDirection } from "../src/commands/utils";
 import { RobotState } from "../src/robot";
 
 const defaultState: RobotState = {

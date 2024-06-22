@@ -1,4 +1,4 @@
-import { ValidDirection } from "./commands/common";
+import { ValidDirection } from "./commands/utils";
 
 export type RobotState = {
     x: number,

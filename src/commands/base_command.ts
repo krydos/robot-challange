@@ -1,17 +1,5 @@
 import { RobotState } from "../robot"
-
-export enum ValidDirection {
-    NORTH = 'NORTH',
-    SOUTH = 'SOUTH',
-    WEST = 'WEST',
-    EAST = 'EAST',
-}
-
-export function isValidDirection(direction: string): boolean {
-    return Object.values(ValidDirection).includes(direction as ValidDirection);
-}
-
-export class InvalidCommandArguments extends Error {}
+import { InvalidCommandArguments } from "./utils";
 
 export abstract class Command {
     static signature: string;

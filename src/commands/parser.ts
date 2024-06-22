@@ -1,4 +1,4 @@
-import { Command } from "./common";
+import { Command } from "./base_command";
 import { PlaceCommand } from "./place_command";
 import { MoveCommand } from "./move_command";
 import { ReportCommand } from "./report_command";

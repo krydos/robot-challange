@@ -1,7 +1,7 @@
-import { ValidDirection } from "../src/commands/common"
 import { RobotState } from "../src/robot"
 import { SimpleBoard } from "../src/board"
 import { SimpleMoveValidator } from "../src/validators/simple_move_validator"
+import { ValidDirection } from "../src/commands/utils"
 
 const defaultState: RobotState = {
     x: 0,

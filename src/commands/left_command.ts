@@ -1,14 +1,10 @@
-import { Command, ValidDirection } from "./common";
+import { Command } from "./base_command";
 import { RobotState } from "../robot";
+import { rotate } from "./utils";
 
 export class LeftCommand extends Command {
     static signature = 'left';
     run(state: RobotState): RobotState {
-        if (state.direction == ValidDirection.NORTH) return { ...state, ...{ direction: ValidDirection.WEST } }
-        if (state.direction == ValidDirection.WEST) return { ...state, ... { direction: ValidDirection.SOUTH } }
-        if (state.direction == ValidDirection.SOUTH) return { ...state, ...{ direction: ValidDirection.EAST } }
-        if (state.direction == ValidDirection.EAST) return { ...state, ... { direction: ValidDirection.NORTH } }
-
-        return state;
+        return { ...state, ...{ direction: rotate(state.direction) }};
     }
 }
