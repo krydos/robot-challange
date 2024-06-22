@@ -1,3 +1,5 @@
+export class InvalidBoardBoundaries extends Error {}
+
 export interface Boundaries2D {
     getMinX(): number
     getMaxX(): number
@@ -7,12 +9,25 @@ export interface Boundaries2D {
 
 export class SimpleBoard implements Boundaries2D {
     constructor(
-        private x: number,
-        private y: number,
-    ) {}
+        private colsCount: number, // x
+        private rowsCount: number, // y
+    ) {
+        if (! this.hasValidDimensions()) {
+            throw new InvalidBoardBoundaries()
+        }
+    }
+
+    private hasValidDimensions() {
+        return (
+            this.colsCount >= 0
+            && this.rowsCount >= 0
+            && Number.isInteger(this.colsCount)
+            && Number.isInteger(this.rowsCount)
+        );
+    }
 
     getMinX() { return 0; }
     getMinY() { return 0; }
-    getMaxX() { return this.x; }
-    getMaxY() { return this.y; }
+    getMaxX() { return this.colsCount; }
+    getMaxY() { return this.rowsCount; }
 }

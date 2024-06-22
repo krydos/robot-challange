@@ -18,6 +18,7 @@ export class PlaceCommand extends Command {
     }
 
     protected hasValidArguments(): boolean {
+        // first two args are proper numbers
         if (
             this.args[0] === undefined
             || this.args[1] === undefined
@@ -26,6 +27,7 @@ export class PlaceCommand extends Command {
         ) {
             return false;
         }
+        // direction is ValidDirection
         if (this.args[2] === undefined || ! isValidDirection(this.args[2].toUpperCase())) {
             return false;
         }
