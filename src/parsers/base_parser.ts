@@ -7,7 +7,8 @@ export interface ParseCommand {
 
 export abstract class BaseParser implements ParseCommand {
     // Every parser may have its own list of commands it can parse.
-    availableCommands: {[key: string]: new(args: Array<any>) => Command} = {}
+    // Every key must be an ID string of the command as it is fetched from fetchCommand()
+    protected availableCommands: {[key: string]: new(args: Array<any>) => Command} = {};
 
     abstract fetchCommand(commandExpression: string): string;
     abstract fetchArguments(commandExpression: string): Array<string>;
@@ -18,9 +19,9 @@ export abstract class BaseParser implements ParseCommand {
         const args = this.fetchArguments(commandExpression);
 
         for (const [signature, commandClass] of Object.entries(this.availableCommands)) {
-            if (cmd.toLowerCase().startsWith(signature.toLowerCase())) {
+            if (cmd.toLowerCase() === signature.toLowerCase()) {
                 try {
-                    return new commandClass(args)
+                    return new commandClass(args);
                 } catch(e) {
                     return new NopCommand(args);
                 }

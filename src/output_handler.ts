@@ -4,6 +4,6 @@ export interface OutputHandler {
 
 export class ConsoleOutputHandler {
     write(output: string) {
-        console.log(output)
+        console.log(output);
     }
 }

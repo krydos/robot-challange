@@ -7,7 +7,7 @@ const defaultState: RobotState = {
     x: 0,
     y: 0,
     direction: ValidDirection.NORTH,
-    is_placed: true
+    isPlaced: true
 }
 
 const board = new SimpleBoard(5,5)

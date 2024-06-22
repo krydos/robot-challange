@@ -4,7 +4,7 @@ export type RobotState = {
     x: number,
     y: number,
     direction: ValidDirection | undefined,
-    is_placed: boolean,
+    isPlaced: boolean,
 }
 
 export interface StateFullRobot {
@@ -15,7 +15,7 @@ export interface StateFullRobot {
 export class SimpleRobot implements StateFullRobot {
     private state: RobotState;
     constructor() {
-        this.state = { x: 0, y: 0, direction: undefined, is_placed: false }
+        this.state = { x: 0, y: 0, direction: undefined, isPlaced: false }
     }
 
     getState() {
@@ -23,6 +23,6 @@ export class SimpleRobot implements StateFullRobot {
     }
 
     setState(state: RobotState) {
-        this.state = state
+        this.state = state;
     }
 }

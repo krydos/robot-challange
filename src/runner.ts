@@ -19,18 +19,18 @@ export class Runner {
     constructor(private config: RunnerConfig) {}
 
     interactive() {
-        this.config.outputHandler.write('Use Ctrl+C to exit...')
-        this.run(() => prompt('> '))
+        this.config.outputHandler.write('Use Ctrl+C to exit...');
+        this.run(() => prompt('> '));
     }
 
     fromFile(filepath: string) {
-        const command_stream = new readlines(filepath)
+        const commandStream = new readlines(filepath);
         this.run(() => {
-            const line = command_stream.next()
+            const line = commandStream.next();
             if (line) {
-                return line.toString('ascii')
+                return line.toString('ascii');
             }
-            return null
+            return null;
         })
     }
 
@@ -38,14 +38,14 @@ export class Runner {
     // getInputFunc is going to return a command per call
     run(getInputFunc: Function) {
         while (true) {
-            const inputLine = getInputFunc()
+            const inputLine = getInputFunc();
 
             // empty strings should not break the loop
             if (typeof inputLine !== 'string' && ! inputLine) {
                 break;
             }
 
-            const command = this.config.commandParser.parseCommand(inputLine)
+            const command = this.config.commandParser.parseCommand(inputLine);
 
             // 1. execute the command and get new robot state
             const newState = command.run(this.config.robot.getState());
@@ -56,9 +56,9 @@ export class Runner {
             }
 
             // 3. set the new state and show the command output if any
-            this.config.robot.setState(newState)
+            this.config.robot.setState(newState);
             for (const out of command.getOutput()) {
-                this.config.outputHandler.write(out)
+                this.config.outputHandler.write(out);
             }
         }
     }

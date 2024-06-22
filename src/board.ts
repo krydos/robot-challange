@@ -13,7 +13,7 @@ export class SimpleBoard implements Boundaries2D {
         private rowsCount: number, // y
     ) {
         if (! this.hasValidDimensions()) {
-            throw new InvalidBoardBoundaries()
+            throw new InvalidBoardBoundaries();
         }
     }
 

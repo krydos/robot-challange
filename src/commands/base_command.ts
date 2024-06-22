@@ -2,14 +2,13 @@ import { RobotState } from "../robot"
 import { InvalidCommandArguments } from "./utils";
 
 export abstract class Command {
-    static signature: string;
-    private output: Array<string> = []
-    protected args: Array<any> = []
+    private output: Array<string> = [];
+    protected args: Array<any> = [];
 
     constructor(args: Array<any>) {
         this.args = args
         if (! this.hasValidArguments()) {
-            throw new InvalidCommandArguments('Invalid command arguments.')
+            throw new InvalidCommandArguments('Invalid command arguments.');
         }
     }
 
@@ -27,10 +26,10 @@ export abstract class Command {
     // Use this method to add any output from the command.
     // It will be handled by the rest of the system.
     protected addOutput(output: string) {
-        this.output.push(output)
+        this.output.push(output);
     }
 
     getOutput() {
-        return this.output
+        return this.output;
     }
 }

@@ -6,7 +6,7 @@ import { RightCommand } from "../commands/right_command"
 import { BaseParser } from "./base_parser"
 
 export class SimpleParser extends BaseParser {
-    availableCommands = {
+    protected availableCommands = {
         'place': PlaceCommand,
         'move': MoveCommand,
         'report': ReportCommand,
@@ -14,14 +14,14 @@ export class SimpleParser extends BaseParser {
         'right': RightCommand
     }
     fetchCommand(commandExpression: string) {
-        const match = commandExpression.match(/^(\w+)\s*/)
+        const match = commandExpression.match(/^(\w+)\s*/);
         if (! match) {
-            return ''
+            return '';
         }
-        return match[1].trim()
+        return match[1].trim();
     }
     fetchArguments(commandExpression: string): Array<string> {
-        const match = commandExpression.match(/^\w+\s(.+?)$/)
+        const match = commandExpression.match(/^\w+\s(.+?)$/);
         if (! match) {
             return [];
         }

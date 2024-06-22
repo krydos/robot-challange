@@ -22,6 +22,6 @@ export function rotate(currentDirection: ValidDirection | undefined, clockwise =
         return;
     }
 
-    return enumValues[(currentDirectionIndex + modifier) % enumValues.length]
+    return enumValues[(currentDirectionIndex + modifier) % enumValues.length];
 }
 

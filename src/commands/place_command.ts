@@ -3,8 +3,6 @@ import { RobotState } from "../robot";
 import { isValidDirection } from "./utils";
 
 export class PlaceCommand extends Command {
-    static signature = 'place';
-
     run(state: RobotState): RobotState {
         return {
             ...state,
@@ -12,9 +10,9 @@ export class PlaceCommand extends Command {
                 x: parseInt(this.args[0]),
                 y: parseInt(this.args[1]),
                 direction: this.args[2].toUpperCase(),
-                is_placed: true
+                isPlaced: true,
             }
-        }
+        };
     }
 
     protected hasValidArguments(): boolean {
@@ -28,7 +26,7 @@ export class PlaceCommand extends Command {
             return false;
         }
         // direction is ValidDirection
-        if (this.args[2] === undefined || ! isValidDirection(this.args[2].toUpperCase())) {
+        if (this.args[2] === undefined || !isValidDirection(this.args[2].toUpperCase())) {
             return false;
         }
 

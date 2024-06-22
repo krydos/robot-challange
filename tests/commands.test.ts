@@ -11,7 +11,7 @@ const defaultState: RobotState = {
     x: 0,
     y: 0,
     direction: ValidDirection.NORTH,
-    is_placed: true,
+    isPlaced: true,
 }
 
 describe('Test commands', () => {
@@ -32,18 +32,17 @@ describe('Test commands', () => {
         })
     })
     it('PLACE command throws exception in case of invalid arguments', () => {
-        try { new PlaceCommand(['1', '2', 'UP']) } catch (e) { expect(e).toBeInstanceOf(InvalidCommandArguments) }
-        try { new PlaceCommand(['1', 'A', 'WEST']) } catch (e) { expect(e).toBeInstanceOf(InvalidCommandArguments) }
-        try { new PlaceCommand(['A', '2', 'WEST']) } catch (e) { expect(e).toBeInstanceOf(InvalidCommandArguments) }
+        expect(() => new PlaceCommand(['1', '2', 'UP'])).toThrow(InvalidCommandArguments);
+        expect(() => new PlaceCommand(['1', 'A', 'WEST'])).toThrow(InvalidCommandArguments);
+        expect(() => new PlaceCommand(['A', '2', 'WEST'])).toThrow(InvalidCommandArguments);
+        expect(() => new PlaceCommand([])).toThrow(InvalidCommandArguments)
 
         // Attention: it must not throw if there are too many arguments.
         // Every possible argument from a command expression is sent to a command
         // and command can choose what to do with it.
         // At this moment PlaceCommand doesn't throw an error in this case
         // because it seems reasonable to me (ruslan)
-        try { new PlaceCommand(['1', '2', 'WEST', 'UNUSED']) } catch (e) { expect(e).not.toBeInstanceOf(InvalidCommandArguments) }
-        try { new PlaceCommand([]) } catch (e) { expect(e).toBeInstanceOf(InvalidCommandArguments) }
-
+        expect(() => new PlaceCommand(['1', '2', 'WEST', 'UNUSED'])).not.toThrow(InvalidCommandArguments)
     })
     it('MOVE changes coordinates', () => {
         const command = new MoveCommand([]);

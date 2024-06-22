@@ -54,7 +54,7 @@ describe('Test the runner', () => {
         expect(robot.getState()).toMatchObject({
             x: 0,
             y: 0,
-            is_placed: false,
+            isPlaced: false,
             direction: undefined
         })
         expect(collectedOutput.length).toBe(0) // no output from REPORT
@@ -113,5 +113,16 @@ describe('Test the runner', () => {
         ]);
         runner.run(() => gen.next().value)
         expect(collectedOutput[collectedOutput.length-1]).toBe('0,1,NORTH')
+    })
+    it('should ignore commands that are similar to existing ones', () => {
+        collectedOutput = []
+        const [runner, _] = setupDefaultRunner();
+        const gen = inputGenerator([
+            'PLACE 0,0,NORTH',
+            'MOVE',
+            'REPORTPLEASE',
+        ]);
+        runner.run(() => gen.next().value)
+        expect(collectedOutput.length).toBe(0)
     })
 })

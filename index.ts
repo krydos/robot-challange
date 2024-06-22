@@ -14,7 +14,7 @@ const config = {
     board: new SimpleBoard(configData?.board?.cols || 5, configData?.board?.rows || 5),
     outputHandler: new ConsoleOutputHandler(),
     moveValidator: new SimpleMoveValidator(),
-    commandParser: new SimpleParser()
+    commandParser: new SimpleParser(),
 }
 
 const runner = new Runner(config);

@@ -14,7 +14,7 @@ describe('Basic examples from the task description', () => {
         expect(robot.getState()).toEqual({
             y: 1,
             x: 0,
-            is_placed: true,
+            isPlaced: true,
             direction: 'NORTH'
         })
     })
