@@ -1,3 +1,4 @@
+import { Boundaries2D } from "../board";
 import { RobotState } from "../robot"
 import { InvalidCommandArguments } from "./utils";
 
@@ -14,7 +15,7 @@ export abstract class Command {
 
     // Main method of a command.
     // Try your best to write it without any side effects.
-    abstract run(state: RobotState): RobotState;
+    abstract run(state: RobotState, boundaries: Boundaries2D): RobotState;
 
     // Each command must be responsible for validating its own arguments.
     // Override this one if you need validation.

@@ -1,9 +1,11 @@
 import { SimpleRobot } from "../src/robot"
 import { SimpleParser } from "../src/parsers/simple_parser";
+import { SimpleBoard } from "../src/board";
 
 function runCommand(robot: SimpleRobot, command: string) {
     const parser = new SimpleParser();
-    robot.setState(parser.parseCommand(command).run(robot.getState()));
+    const board = new SimpleBoard(5, 5);
+    robot.setState(parser.parseCommand(command).run(robot.getState(), board));
 }
 
 describe('Basic examples from the task description', () => {

@@ -48,7 +48,7 @@ export class Runner {
             const command = this.config.commandParser.parseCommand(inputLine);
 
             // 1. execute the command and get new robot state
-            const newState = command.run(this.config.robot.getState());
+            const newState = command.run(this.config.robot.getState(), this.config.board);
 
             // 2. validate the new state
             if (! this.config.moveValidator.isMoveValid(this.config.robot.getState(), newState, this.config.board)) {
