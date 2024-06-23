@@ -47,8 +47,8 @@ Just run `COLS=3 ROWS=3 npm run repl` (or any other npm/node command).
 
 - Every command generate a new state.
 - Robot is clueless where it is and whether there are any boards at all.
-- Added a validator to check if the new state is valid/within a board (and assign it to the robot if it is)
-- Added a "runner" which responsibility is to clue things together
+- There is a validator to check if the new state is valid/within a board (and assign it to the robot if it is)
+- There is a "runner" which responsibility is to clue things together
 - I tried to over-engineer and premature-optimization-is-root-of-all-evil reasonably.
 - There is no top level try/catch on purpose. So if something's wrong, you should see custom exceptions thrown with stacktrace for details.
 - I "Would be happy to have code of a similar standard in production"
