@@ -15,11 +15,11 @@ const defaultState: RobotState = {
 }
 
 describe('Test commands', () => {
-    it('LEFT changes direction to WEST', () => {
+    it('LEFT changes direction counterclockwise', () => {
         const command = new LeftCommand([]);
         expect(command.run(defaultState).direction).toBe(ValidDirection.WEST)
     })
-    it('RIGHT changes direction to EAST', () => {
+    it('RIGHT changes direction clockwise', () => {
         const command = new RightCommand([]);
         expect(command.run(defaultState).direction).toBe(ValidDirection.EAST)
     })

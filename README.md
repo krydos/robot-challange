@@ -9,8 +9,10 @@
 
 ### REPL
 
-I've got built-in repl there for you to try so `npm run repl` should do the thing.
-Feel free to type in lowercase.
+- `npm run repl`
+
+I've got built-in repl there for you.
+Feel free to type any command in lowercase.
 Wrong/broken and invalid commands are ignored (no output) as well as commands to "unPLACEd" robot.
 
 There are NON of GNU Readline stuff available (up/down arrows, alt-*, ctrl+a, etc...)
@@ -36,7 +38,7 @@ It's gonna be 5 Million commands and may take around 20 seconds to execute all o
 It has constant mem usage on the other hand - files are never getting read fully in memory.
 This one should return **5,0,EAST** (in case of 5,5 board size).
 
-## Board Size configuration
+## Board Size Configuration
 
 Board size can be configured using ENV variables.
 Just run `COLS=3 ROWS=3 npm run repl` (or any other npm/node command).
