@@ -5,12 +5,21 @@ export interface Boundaries2D {
     getMaxX(): number
     getMinY(): number
     getMaxY(): number
+    getObstacles(): Array<Obstacle>
+}
+
+export class Obstacle {
+    constructor(
+        public x: number,
+        public y: number,
+    ) {}
 }
 
 export class SimpleBoard implements Boundaries2D {
     constructor(
         private colsCount: number, // x
         private rowsCount: number, // y
+        private obstacles: Array<Obstacle> = []
     ) {
         if (! this.hasValidDimensions()) {
             throw new InvalidBoardBoundaries();
@@ -30,4 +39,8 @@ export class SimpleBoard implements Boundaries2D {
     getMinY() { return 0; }
     getMaxX() { return this.colsCount; }
     getMaxY() { return this.rowsCount; }
+
+    getObstacles() {
+        return this.obstacles
+    }
 }
