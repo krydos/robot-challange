@@ -1,5 +1,6 @@
 import { LeftCommand } from "../commands/left_command"
 import { MoveCommand } from "../commands/move_command"
+import { PathCommand } from "../commands/path_command"
 import { PlaceCommand } from "../commands/place_command"
 import { ReportCommand } from "../commands/report_command"
 import { RightCommand } from "../commands/right_command"
@@ -11,7 +12,8 @@ export class SimpleParser extends BaseParser {
         'move': MoveCommand,
         'report': ReportCommand,
         'left': LeftCommand,
-        'right': RightCommand
+        'right': RightCommand,
+        'path': PathCommand
     }
     fetchCommand(commandExpression: string) {
         const match = commandExpression.match(/^(\w+)\s*/);

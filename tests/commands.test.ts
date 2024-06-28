@@ -1,6 +1,8 @@
+import { SimpleBoard } from "../src/board";
 import { LeftCommand } from "../src/commands/left_command"
 import { MoveCommand } from "../src/commands/move_command";
 import { NopCommand } from "../src/commands/nop_command";
+import { PathCommand } from "../src/commands/path_command";
 import { PlaceCommand } from "../src/commands/place_command";
 import { ReportCommand } from "../src/commands/report_command";
 import { RightCommand } from "../src/commands/right_command";

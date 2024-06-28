@@ -125,4 +125,28 @@ describe('Test the runner', () => {
         runner.run(() => gen.next().value)
         expect(collectedOutput.length).toBe(0)
     })
+    it('PATH prints the path to the target', () => {
+        collectedOutput = []
+        const [runner, _] = setupDefaultRunner();
+        const gen = inputGenerator([
+            'PLACE 0,0,NORTH',
+            'PATH 1,1',
+        ]);
+        runner.run(() => gen.next().value)
+        expect(collectedOutput.length).toBe(3)
+        expect(collectedOutput[0]).toBe('1,1')
+        expect(collectedOutput[1]).toBe('1,0')
+        expect(collectedOutput[2]).toBe('0,0')
+    })
+
+    it('PATH prints nothing if the target is invalid position', () => {
+        collectedOutput = []
+        const [runner, _] = setupDefaultRunner();
+        const gen = inputGenerator([
+            'PLACE 0,0,NORTH',
+            'PATH 10,10',
+        ]);
+        runner.run(() => gen.next().value)
+        expect(collectedOutput.length).toBe(0)
+    })
 })

@@ -37,6 +37,7 @@ export class Runner {
     // Main method to run commands.
     // getInputFunc is going to return a command per call
     run(getInputFunc: Function) {
+        this.config.board.setValidator(this.config.moveValidator);
         while (true) {
             const inputLine = getInputFunc();
 
